@@ -1,442 +1,305 @@
 ---
 layout: default
-title: Features Overview
+title: Features
 parent: Guides
-nav_order: 4
+nav_order: 1
 ---
 
-# doctai - Complete Feature Summary
+# Features Overview
 
-## 🎉 Three Major Features Added Today!
+Complete guide to doctai's capabilities.
 
-This document summarizes all the features added to doctai in this session.
+## Core Features
 
----
+### 🤖 AI-Powered Testing
 
-## Feature 1: Google Gemini Support
+doctai uses advanced AI models to:
+- **Understand** your documentation like a human would
+- **Generate** executable test scripts (bash, Python, etc.)
+- **Verify** that instructions actually work
 
-### What It Does
-Adds Google's Gemini AI as a supported provider alongside OpenAI and Anthropic.
+**Supported AI Providers:**
+- OpenAI (GPT-4, GPT-3.5)
+- Anthropic (Claude Sonnet, Claude Opus)
+- Google Gemini
+- Custom OpenAI-compatible endpoints
 
-### Why It Matters
-- 💰 **Cost-effective**: Generally cheaper than competitors
-- 🚀 **Fast**: Especially with Flash model
-- 📦 **Large context**: 1M+ tokens
-- 🆓 **Free tier**: Generous for testing
+### 📄 Flexible Documentation Sources
 
-### How to Use
+Test documentation from multiple sources:
 
-**Config file:**
-```yaml
-docs:
-  - README.md
-provider: gemini
-model: gemini-1.5-pro-latest
+```bash
+# Local files
+doctai --docs README.md
+
+# Multiple files
+doctai --docs README.md --docs INSTALL.md
+
+# Remote URLs
+doctai --docs https://raw.githubusercontent.com/user/repo/main/README.md
+
+# Entire directories
+doctai --docs docs/
 ```
 
-**Command line:**
+### ⚙️ Configuration Files
+
+Create a `.doctai.yml` file to avoid repetitive command-line flags:
+
+```yaml
+provider: anthropic
+model: claude-sonnet-4-20250514
+api_key_env_var: ANTHROPIC_API_KEY
+
+documentation_sources:
+  - README.md
+  - INSTALL.md
+  - docs/quickstart.md
+
+instructions: |
+  Focus on testing installation steps.
+  Skip optional features.
+```
+
+Then simply run:
+
+```bash
+doctai
+```
+
+[Learn more about configuration →](configuration.html)
+
+### 🎯 Custom Instructions
+
+Guide the AI's testing behavior:
+
 ```bash
 doctai --docs README.md \
-  --provider gemini \
-  --api-key $GEMINI_API_KEY
+        --instructions "Only test the Docker installation method"
 ```
 
-**GitHub Actions:**
-```yaml
-- run: doctai --api-key ${{ secrets.GEMINI_API_KEY }} --provider gemini
-```
+Or in your config file:
 
-### Files Created/Modified
-- ✅ `doc_tester/ai_client.py` - Added Gemini provider
-- ✅ `.github/workflows/test-docs.yml` - Added Gemini workflow
-- ✅ `GEMINI_SETUP.md` - Complete setup guide
-- ✅ `examples/gemini-example.sh` - Example script
-- ✅ Documentation updates across all files
-
-**Documentation:** See [GEMINI_SETUP.md](GEMINI_SETUP.md)
-
----
-
-## Feature 2: Configuration File Support
-
-### What It Does
-Allows storing all settings in a configuration file instead of passing them via command line every time.
-
-### Why It Matters
-- 🎯 **Easier to use**: No more long command lines
-- 📝 **Self-documenting**: Config shows what's tested
-- 👥 **Team-friendly**: Commit config to repo
-- 🤖 **CI/CD perfect**: Auto-loads in GitHub Actions
-- 🔄 **Consistent**: Everyone uses same settings
-
-### How to Use
-
-**Create `.doctai.yml`:**
-```yaml
-docs:
-  - README.md
-  - docs/installation.md
-  - docs/tutorial.md
-
-provider: openai
-model: gpt-4o
-stop_on_failure: false
-max_iterations: 3
-```
-
-**Run (no args needed!):**
-```bash
-doctai --api-key $API_KEY
-```
-
-### Supported Formats
-
-**YAML** (recommended):
-- `.doctai.yml`
-- `.doctai.yaml`
-- `doctai.yml`
-
-**JSON**:
-- `.doctai.json`
-- `doctai.json`
-
-### Configuration Options
-
-| Option | Type | Description |
-|--------|------|-------------|
-| `docs` | list | Documentation sources |
-| `provider` | string | AI provider (openai/anthropic/gemini/custom) |
-| `model` | string | Model name |
-| `api_url` | string | Custom API URL |
-| `work_dir` | string | Working directory |
-| `stop_on_failure` | bool | Stop on first failure |
-| `max_iterations` | int | Max AI iterations |
-| `timeout` | int | Request timeout |
-| `instructions` | string | Custom instructions (Feature 3!) |
-
-### CLI Override
-
-Command-line arguments always override config:
-```bash
-# Config has provider: openai
-# This uses gemini instead:
-doctai --provider gemini --api-key $API_KEY
-```
-
-### Files Created/Modified
-- ✅ `doc_tester/config.py` - New module (280 lines)
-- ✅ `doc_tester/cli.py` - Integrated config loading
-- ✅ `.github/workflows/test-docs.yml` - Auto-loads config
-- ✅ `.doctai.example.yml` - YAML template
-- ✅ `.doctai.example.json` - JSON template
-- ✅ `.doctai.yml` - Working example
-- ✅ `CONFIG.md` - Complete configuration guide
-
-**Documentation:** See [CONFIG.md](CONFIG.md)
-
----
-
-## Feature 3: Custom Instructions
-
-### What It Does
-Lets you provide additional guidance to the AI on HOW to test your documentation.
-
-### Why It Matters
-- 🎯 **Better success rate**: AI understands constraints
-- 🌍 **Environment-aware**: Tell AI about CI/test environment
-- 🔍 **Focused testing**: Direct AI to important sections
-- 🚫 **Skip what doesn't work**: Avoid known issues
-- 📍 **Test endpoints**: Use test APIs not production
-
-### How to Use
-
-**In config file:**
-```yaml
-docs:
-  - README.md
-
-instructions: |
-  - Test on Ubuntu 22.04
-  - Use Python 3.10+
-  - Skip Docker examples (not available in CI)
-  - Use test API: https://api.test.example.com
-  - Focus on installation guide first
-```
-
-**Via command line:**
-```bash
-doctai --docs README.md \
-  --instructions "Test on Ubuntu. Skip Docker." \
-  --api-key $API_KEY
-```
-
-### When to Use Instructions
-
-✅ **Use instructions for:**
-- Environment constraints (no Docker, specific Python version)
-- Platform-specific requirements (Windows, macOS, Linux)
-- Focus areas (test section X thoroughly, skip section Y)
-- Test substitutions (use test endpoints, dummy credentials)
-- Specific flows (follow path A then B)
-- Error handling (continue on failures, use fallbacks)
-
-### Real-World Examples
-
-**CI Environment:**
 ```yaml
 instructions: |
-  GitHub Actions environment:
-  - No Docker daemon
-  - No GUI available
-  - Limited network access
-  - Use pip, not conda
+  Focus on testing the basic installation.
+  Test on Ubuntu 22.04.
+  Skip Windows-specific steps.
 ```
 
-**Feature Testing:**
+[Learn more about custom instructions →](instructions.html)
+
+### 💾 Generated Script Saving
+
+All generated scripts are saved to disk for inspection:
+
+```bash
+doctai --docs README.md --provider anthropic
+# Creates: _gen-README.md-abc123.sh
+```
+
+Scripts are named based on:
+- Source documentation filename
+- AI-suggested filename (from script comments)
+- Random suffix for uniqueness
+
+**Benefits:**
+- Debug test failures
+- Understand what the AI generated
+- Reuse scripts manually
+- Learn from AI-generated code
+
+### 🔑 Flexible API Key Configuration
+
+Multiple ways to provide API keys:
+
+**1. Environment Variable (Recommended)**
+```bash
+export DOCTAI_API_KEY=your-key
+doctai --docs README.md
+```
+
+**2. Provider-Specific Variables**
+```bash
+export ANTHROPIC_API_KEY=your-key
+export OPENAI_API_KEY=your-key
+export GEMINI_API_KEY=your-key
+```
+
+**3. Config File**
 ```yaml
-instructions: |
-  Testing new auth feature:
-  - Focus on docs/authentication.md
-  - Test all auth endpoints
-  - Skip other sections for now
+api_key_env_var: ANTHROPIC_API_KEY
 ```
 
-**Multi-Platform:**
-```yaml
-instructions: |
-  Platform: macOS
-  - Use brew for packages
-  - Use zsh shell syntax
-  - Test on macOS 13 Ventura
+**4. Command Line**
+```bash
+doctai --docs README.md --api-key your-key
 ```
 
-### Files Created/Modified
-- ✅ `doc_tester/config.py` - Added `get_instructions()`
-- ✅ `doc_tester/cli.py` - Added `--instructions` arg
-- ✅ `doc_tester/orchestrator.py` - Integrated into AI prompt
-- ✅ `INSTRUCTIONS_GUIDE.md` - Complete 600+ line guide
-- ✅ `examples/config-with-instructions.yml` - Working example
-- ✅ Configuration templates updated
+[Learn more about API key configuration →](../api-key-configuration.html)
 
-**Documentation:** See [INSTRUCTIONS_GUIDE.md](INSTRUCTIONS_GUIDE.md)
+### 🔄 GitHub Actions Integration
 
----
-
-## How Features Work Together
-
-### Example: Complete Setup
+Automate documentation testing in CI/CD:
 
 ```yaml
-# .doctai.yml
-docs:
-  - README.md
-  - docs/installation.md
+name: Test Documentation
 
-provider: gemini  # Feature 1: Use Gemini (cost-effective)
-model: gemini-1.5-flash-latest
+on:
+  push:
+    branches: [main]
+  pull_request:
 
-instructions: |  # Feature 3: Custom instructions
-  CI Environment Constraints:
-  - Ubuntu 22.04 in GitHub Actions
-  - No Docker available
-  - Use Python 3.10
-  - Test API endpoint: https://api.test.example.com
-  
-  Testing Strategy:
-  - Focus on README.md thoroughly
-  - For installation.md, test pip method only
-  - Skip advanced configuration sections
-
-stop_on_failure: false
-max_iterations: 3
+jobs:
+  test-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install doctai
+        run: pip install doctai
+      
+      - name: Test Documentation
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: doctai --docs README.md --provider anthropic
 ```
 
-**Run it:**
-```bash
-# Feature 2: Just needs API key, rest from config!
-doctai --api-key $GEMINI_API_KEY
-```
+[Learn more about GitHub Actions →](../github-actions.html)
 
-**GitHub Actions:**
-```yaml
-# Automatically uses config file
-- run: doctai --api-key ${{ secrets.GEMINI_API_KEY }}
-```
+## Advanced Features
 
----
+### Script Execution Control
 
-## Project Statistics
-
-### Code
-- **Python Modules**: 7 in `doc_tester/` package
-- **Lines of Code**: ~1,500+
-- **AI Providers**: 4 (OpenAI, Anthropic, Gemini, Custom)
-
-### Documentation
-- **Documentation Files**: 13 markdown guides
-- **Examples**: 5+ working examples
-- **Guides**: Installation, quickstart, configuration, instructions, architecture
-
-### Features
-- ✅ Multiple AI providers
-- ✅ Configuration files (YAML/JSON)
-- ✅ Custom instructions
-- ✅ Local files and URLs
-- ✅ Safe script execution
-- ✅ GitHub Actions integration
-- ✅ JSON output
-- ✅ Comprehensive error handling
-
----
-
-## Quick Reference
-
-### Setup New Project
+Control how scripts are executed:
 
 ```bash
-# 1. Create config
-cat > .doctai.yml << 'EOF'
-docs:
-  - README.md
-  - docs/installation.md
+# Stop on first failure
+doctai --docs README.md --stop-on-failure
 
-provider: gemini
-model: gemini-1.5-flash-latest
+# Custom working directory
+doctai --docs README.md --work-dir /tmp/test
 
-instructions: |
-  - Test on Ubuntu 22.04
-  - Use Python 3.10+
-  - Skip Docker examples
-EOF
-
-# 2. Test locally
-export DOCTAI_API_KEY="your-gemini-api-key"
-doctai --api-key $DOCTAI_API_KEY
-
-# 3. Add to GitHub Actions
-# (workflow automatically uses config file)
-
-# 4. Add API key to GitHub Secrets
-# Settings → Secrets → GEMINI_API_KEY
-
-# 5. Done! 🎉
+# Adjust AI iterations
+doctai --docs README.md --max-iterations 5
 ```
 
-### All Command-Line Options
+### Verbose and Quiet Modes
 
 ```bash
-doctai \
-  --docs README.md docs/ https://example.com/doc.md \
-  --config .doctai.yml \
-  --provider gemini \
-  --model gemini-1.5-pro-latest \
-  --api-key $API_KEY \
-  --api-url https://custom-api.com \
-  --instructions "Test on Ubuntu. Skip Docker." \
-  --work-dir /tmp/tests \
-  --max-iterations 5 \
-  --timeout 180 \
-  --stop-on-failure \
-  --output results.json \
-  --quiet
+# Detailed output (default)
+doctai --docs README.md --verbose
+
+# Minimal output
+doctai --docs README.md --quiet
 ```
 
-But with config file, just:
-```bash
-doctai --api-key $API_KEY
-```
+### Custom AI Models
 
----
-
-## Documentation Index
-
-### Getting Started
-- **[README.md](README.md)** - Main documentation
-- **[GET_STARTED.md](GET_STARTED.md)** - 3-step quick start
-- **[QUICKSTART.md](QUICKSTART.md)** - 5-minute tutorial
-- **[INSTALL.md](INSTALL.md)** - Installation guide
-
-### Feature Guides
-- **[CONFIG.md](CONFIG.md)** - Configuration file guide
-- **[INSTRUCTIONS_GUIDE.md](INSTRUCTIONS_GUIDE.md)** - Custom instructions guide
-- **[GEMINI_SETUP.md](GEMINI_SETUP.md)** - Gemini provider guide
-
-### Advanced
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Technical architecture
-- **[CONTRIBUTING.md](CONTRIBUTING.md)** - Contribution guidelines
-- **[PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)** - Complete overview
-
-### Changelog
-- **[CHANGELOG_GEMINI.md](CHANGELOG_GEMINI.md)** - Gemini feature
-- **[CHANGELOG_CONFIG.md](CHANGELOG_CONFIG.md)** - Config file feature  
-- **[CHANGELOG_INSTRUCTIONS.md](CHANGELOG_INSTRUCTIONS.md)** - Instructions feature
-
----
-
-## What's Next?
-
-The project is now feature-complete for v0.1.0! Possible future enhancements:
-
-### Potential v0.2.0 Features
-- 🐳 Docker support for isolated execution
-- ⚡ Parallel script execution
-- 💾 Result caching
-- 🌐 Web UI for results
-- 🔌 Plugin system
-- 📊 Metrics and analytics
-- 🔄 Retry logic
-- 🎨 Custom script templates
-
-### Community
-- 📦 Publish to PyPI
-- ⭐ GitHub repository
-- 📖 ReadTheDocs hosting
-- 💬 Discussions forum
-- 🐛 Issue tracker
-
----
-
-## Summary
-
-Three powerful features added today:
-
-1. **Gemini Support** → More AI choices, cost-effective testing
-2. **Config Files** → Easier to use, better CI/CD integration
-3. **Custom Instructions** → Smarter AI, better success rates
-
-**Result:** doctai is now more powerful, flexible, and easier to use than ever!
-
-### Before Today
-```bash
-doctai \
-  --docs README.md docs/install.md docs/tutorial.md \
-  --provider openai \
-  --model gpt-4o \
-  --api-key $OPENAI_API_KEY
-```
-
-### After Today
-```yaml
-# .doctai.yml
-docs:
-  - README.md
-  - docs/install.md
-  - docs/tutorial.md
-provider: gemini
-instructions: "Test on Ubuntu 22.04. Skip Docker."
-```
+Use specific models:
 
 ```bash
-doctai --api-key $GEMINI_API_KEY
+# OpenAI GPT-4
+doctai --provider openai --model gpt-4
+
+# Anthropic Claude Opus
+doctai --provider anthropic --model claude-3-opus-20240229
+
+# Google Gemini Pro
+doctai --provider gemini --model gemini-1.5-pro-latest
 ```
 
-**Much better!** 🚀
+### Custom API Endpoints
 
----
+Use OpenAI-compatible endpoints:
 
-**doctai v0.1.0** - Because documentation should always work!
+```bash
+doctai --provider custom \
+        --api-url https://api.example.com/v1 \
+        --api-key your-key
+```
 
-Made with ❤️ and ☕
+## Use Cases
 
-*Last updated: November 17, 2025*
+### 📝 Test Installation Guides
 
+Verify that your installation instructions actually work:
+
+```bash
+doctai --docs INSTALL.md
+```
+
+### 🚀 Test Quick Start Tutorials
+
+Ensure your quick start guide doesn't have broken steps:
+
+```bash
+doctai --docs docs/quickstart.md
+```
+
+### 🔧 Test Setup Documentation
+
+Validate complex setup procedures:
+
+```bash
+doctai --docs docs/setup.md \
+        --instructions "Test the manual installation method"
+```
+
+### 📚 Test API Examples
+
+Verify that code examples in your API documentation work:
+
+```bash
+doctai --docs docs/api/examples.md
+```
+
+### 🐳 Test Docker Workflows
+
+Ensure Docker setup instructions are correct:
+
+```bash
+doctai --docs docker/README.md \
+        --instructions "Focus on Docker Compose setup"
+```
+
+## Best Practices
+
+### 1. Use Configuration Files
+
+Store common settings in `.doctai.yml` to avoid repetition.
+
+### 2. Test Regularly
+
+Add doctai to your CI/CD pipeline to catch documentation issues early.
+
+### 3. Provide Custom Instructions
+
+Guide the AI to test what matters most for your project.
+
+### 4. Review Generated Scripts
+
+Check saved scripts to understand what the AI is testing.
+
+### 5. Start Simple
+
+Begin with a single README.md, then expand to more documentation.
+
+## Limitations
+
+- Requires valid API keys for AI providers
+- May incur API costs depending on usage
+- Generated scripts might need environment setup
+- Best for procedural documentation (installation, setup, tutorials)
+- May not work well for conceptual or reference documentation
+
+## See Also
+
+- [Configuration Guide](configuration.html)
+- [CLI Reference](../cli-reference.html)
+- [GitHub Actions Guide](../github-actions.html)

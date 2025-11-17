@@ -14,7 +14,7 @@ nav_order: 1
 AI-powered documentation testing
 {: .fs-6 .fw-300 }
 
-[Get Started](getting-started/get-started.html){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
+[Get Started](getting-started.html){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 [View on GitHub](https://github.com/dwertent/doctai){: .btn .fs-5 .mb-4 .mb-md-0 }
 
 ---
@@ -23,7 +23,7 @@ AI-powered documentation testing
 
 doctai automatically verifies your documentation by reading it with AI, generating test scripts, and executing them.
 
-## 🚀 Overview
+## Overview
 
 doctai solves a common problem: **outdated or broken documentation**. It uses AI to:
 
@@ -34,23 +34,23 @@ doctai solves a common problem: **outdated or broken documentation**. It uses AI
 5. **Report** results so you know if your docs are accurate
 
 Perfect for:
-- ✅ CI/CD pipelines (via GitHub Actions)
-- ✅ Regular documentation validation
-- ✅ Testing installation guides
-- ✅ Verifying tutorials and examples
-- ✅ Ensuring setup instructions work
+- CI/CD pipelines (via GitHub Actions)
+- Regular documentation validation
+- Testing installation guides
+- Verifying tutorials and examples
+- Ensuring setup instructions work
 
-## 📋 Key Features
+## Key Features
 
-- **Multiple AI Providers**: OpenAI, Anthropic Claude, Google Gemini, or custom endpoints
-- **Configuration Files**: YAML/JSON config files for easy project setup
-- **Custom Instructions**: Guide the AI with specific requirements and constraints
-- **Flexible Sources**: Read from local files, directories, or URLs
-- **Safe Execution**: Isolated execution with configurable timeouts
-- **GitHub Actions Integration**: Easy CI/CD integration with auto-config loading
-- **Detailed Reporting**: JSON output for programmatic processing
+- **Multiple AI Providers** - OpenAI, Anthropic (Claude), Google Gemini, or custom endpoints
+- **Flexible Configuration** - Config files or command-line arguments
+- **GitHub Actions** - Automate testing in CI/CD pipelines
+- **Multiple Sources** - Test files, directories, or remote URLs
+- **Smart Script Generation** - AI creates executable test scripts
+- **Safe Execution** - Isolated environments with timeouts
+- **Detailed Reporting** - Clear results with execution logs
 
-## 🎯 Quick Start
+## Quick Start
 
 ```bash
 # 1. Install
@@ -68,14 +68,13 @@ EOF
 doctai --api-key $OPENAI_API_KEY
 ```
 
-See [Get Started](getting-started/get-started.html) for detailed instructions.
+See [Get Started](getting-started.html) for detailed instructions.
 
-## 📚 Documentation Sections
+## Documentation
 
 ### Getting Started
-- [Installation](getting-started/installation.html) - Install and setup
-- [Quick Start](getting-started/quickstart.html) - 5-minute tutorial  
-- [Get Started](getting-started/get-started.html) - 3-step guide
+- [Getting Started](getting-started.html) - Install and run your first test
+- [Installation](getting-started/installation.html) - Detailed setup guide
 
 ### Guides
 - [Configuration](guides/configuration.html) - Config file guide

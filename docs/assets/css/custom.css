@@ -1,12 +1,19 @@
 /* Custom styles for doctai documentation */
 
-/* Make content use more of the screen width */
-.main-content {
-  max-width: 100% !important;
+/* Make content use full screen width */
+.main-content-wrap {
+  max-width: none !important;
 }
 
-.main {
+.main-content {
   max-width: none !important;
+}
+
+@media (min-width: 50rem) {
+  .main-content {
+    max-width: none !important;
+    margin-left: 0 !important;
+  }
 }
 
 /* Better code block styling */

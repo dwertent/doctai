@@ -9,17 +9,41 @@ has_children: true
 
 Get up and running with doctai in minutes.
 
-## Quick Navigation
+## Installation
 
-- [Installation](getting-started/installation.html) - Install doctai on your system
-- [Quick Start](getting-started/quickstart.html) - Your first test in 5 minutes
-- [Get Started Guide](getting-started/get-started.html) - Comprehensive walkthrough
+**Python 3.8+ required**
 
-Choose your path:
+```bash
+git clone https://github.com/dwertent/doctai.git
+cd doctai
+pip install -e .
+```
 
-### 🚀 Fast Track
-Jump straight to the [Quick Start](getting-started/quickstart.html) if you want to try it immediately.
+## Quick Start
 
-### 📚 Detailed Path
-Start with [Installation](getting-started/installation.html) for step-by-step instructions.
+### 1. Get an API Key
+
+Choose one provider:
+- [OpenAI](https://platform.openai.com/api-keys)
+- [Anthropic Claude](https://console.anthropic.com/)
+- [Google Gemini](https://aistudio.google.com/app/apikey)
+
+### 2. Run Your First Test
+
+```bash
+doctai --docs README.md \
+        --provider anthropic \
+        --api-key your-api-key
+```
+
+That's it! doctai will:
+1. Read your documentation
+2. Generate test scripts using AI
+3. Execute them to verify everything works
+
+## Next Steps
+
+- [Configure with `.doctai.yml`](guides/configuration.html) for easier usage
+- [Use in GitHub Actions](github-actions.html) for automated testing
+- [Explore all features](guides/features.html)
 
