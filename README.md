@@ -1,9 +1,13 @@
-# doctai
-
-> **doc-t-ai**: AI-powered documentation testing
-
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+<div align="center">
+  <img src="docs/assets/images/logo.png" alt="doctai logo" width="200"/>
+  
+  # doctai
+  
+  > **doc-t-ai**: AI-powered documentation testing
+  
+  [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+  [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+</div>
 
 **Stop wondering if your docs work—know for certain.**
 

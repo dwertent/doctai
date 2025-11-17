@@ -2,8 +2,8 @@
 
 title: doctai
 description: "doc-t-ai: AI-powered documentation testing"
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site
+baseurl: "/doctai" # the subpath of your site - MUST match your repo name
+url: "https://dwertent.github.io" # the base hostname & protocol for your site
 
 # Theme
 theme: just-the-docs

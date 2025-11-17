@@ -4,6 +4,10 @@ title: Home
 nav_order: 1
 ---
 
+<div align="center" style="margin-bottom: 2rem;">
+  <img src="assets/images/logo.png" alt="doctai logo" width="200"/>
+</div>
+
 # doctai
 {: .fs-9 }
 
