@@ -11,6 +11,7 @@ Manages the entire documentation testing workflow:
 import json
 import re
 from typing import Dict, List, Optional, Tuple
+from halo import Halo
 from doctai.fetcher import DocumentationFetcher
 from doctai.ai_client import AIClient
 from doctai.executor import ScriptExecutor
@@ -119,14 +120,23 @@ Be practical and focus on making the documentation work. If something is ambiguo
             print("STEP 2: Analyzing Documentation with AI")
             print("="*80 + "\n")
         
+        spinner = None
         try:
+            if self.verbose:
+                spinner = Halo(text='Communicating with AI...', spinner='dots')
+                spinner.start()
+            
             scripts = self._generate_test_scripts(docs, max_iterations, custom_instructions)
             results["scripts_generated"] = len(scripts)
             results["scripts"] = scripts  # Store generated scripts in results
             
-            if self.verbose:
+            if spinner:
+                spinner.succeed(f"✓ Generated {len(scripts)} test script(s)")
+            elif self.verbose:
                 print(f"\n✓ Generated {len(scripts)} test script(s)")
         except Exception as e:
+            if spinner:
+                spinner.fail(f"✗ Failed to generate test scripts")
             results["error"] = f"Failed to generate test scripts: {str(e)}"
             return results
         
@@ -225,6 +235,15 @@ Please analyze this documentation and generate executable test scripts that:
         
         prompt_parts.append("""
 
+IMPORTANT: Script ordering matters! Generate scripts in this logical order:
+1. Setup/installation scripts first
+2. Verification/test scripts second  
+3. Cleanup scripts LAST (if needed)
+
+Never generate cleanup scripts before verification scripts. If you create a cleanup script, it should always be the final script.
+
+DO NOT generate "runner" scripts that just call other scripts (like chmod +x script.sh; ./script.sh). Generate only the actual executable scripts with full content. Each script should be complete and self-contained.
+
 Generate complete, ready-to-run scripts. Use bash scripts for system setup/installation and Python scripts if needed for application testing.
 
 Format each script clearly with code blocks like:
@@ -243,10 +262,25 @@ or
         initial_prompt = ''.join(prompt_parts)
         
         # Get AI response
-        ai_response = self.ai_client.send_message(initial_prompt, self.SYSTEM_PROMPT)
+        if self.verbose:
+            spinner = Halo(text='Waiting for AI response...', spinner='dots')
+            spinner.start()
         
-        # Extract scripts from AI response
-        scripts = self._extract_scripts_from_response(ai_response)
+        try:
+            ai_response = self.ai_client.send_message(initial_prompt, self.SYSTEM_PROMPT)
+            
+            if self.verbose:
+                spinner.text = 'Parsing AI response...'
+            
+            # Extract scripts from AI response
+            scripts = self._extract_scripts_from_response(ai_response)
+            
+            if self.verbose:
+                spinner.stop()
+        except Exception as e:
+            if self.verbose:
+                spinner.fail('Failed to get AI response')
+            raise
         
         # Could implement iteration here if needed to refine scripts
         # For now, return the first set of generated scripts
@@ -275,9 +309,10 @@ or
             response: AI response text
             
         Returns:
-            Dictionary of scripts with metadata
+            Dictionary of scripts with metadata, with cleanup scripts moved to the end
         """
         scripts = {}
+        cleanup_scripts = {}
         
         # Pattern to match code blocks with language identifier
         pattern = r'```(\w+)\n(.*?)```'
@@ -298,13 +333,86 @@ or
                 script_type = 'python'
             
             script_name = f"script_{i}_{script_type}"
-            
-            scripts[script_name] = {
+            script_data = {
                 'content': content.strip(),
                 'type': script_type
             }
+            
+            # Skip "runner" scripts that just call other scripts
+            if self._is_runner_script(content):
+                continue
+            
+            # Detect cleanup scripts by checking content
+            if self._is_cleanup_script(content):
+                cleanup_scripts[script_name] = script_data
+            else:
+                scripts[script_name] = script_data
+        
+        # Append cleanup scripts at the end
+        scripts.update(cleanup_scripts)
         
         return scripts
+    
+    def _is_runner_script(self, content: str) -> bool:
+        """
+        Detect if a script just calls other scripts (a "runner" script).
+        
+        These are scripts that only chmod and execute other script files,
+        which won't work since we execute scripts directly.
+        
+        Args:
+            content: Script content
+            
+        Returns:
+            True if the script appears to be a runner script
+        """
+        lines = content.strip().split('\n')
+        # Remove shebang and empty lines
+        actual_lines = [l.strip() for l in lines if l.strip() and not l.strip().startswith('#')]
+        
+        # If the script only has 1-2 lines and they're calling other scripts
+        if len(actual_lines) <= 2:
+            for line in actual_lines:
+                # Check if it's just chmod and running another script
+                if 'chmod' in line and '.sh' in line:
+                    return True
+                if line.startswith('./') and '.sh' in line:
+                    return True
+        
+        return False
+    
+    def _is_cleanup_script(self, content: str) -> bool:
+        """
+        Detect if a script is a cleanup script.
+        
+        Args:
+            content: Script content
+            
+        Returns:
+            True if the script appears to be a cleanup script
+        """
+        content_lower = content.lower()
+        
+        # Check for cleanup indicators
+        cleanup_indicators = [
+            'cleanup',
+            'clean up',
+            'remove',
+            'rm -rf',
+            'delete',
+            'tear down',
+            'teardown'
+        ]
+        
+        # Check for cleanup patterns in comments or echo statements
+        for indicator in cleanup_indicators:
+            if indicator in content_lower[:200]:  # Check first 200 chars for titles/comments
+                # Make sure it's not just mentioning cleanup in passing
+                if ('echo' in content_lower and indicator in content_lower) or \
+                   (f'# {indicator}' in content_lower or f'#{indicator}' in content_lower):
+                    return True
+        
+        return False
     
     def _print_summary(self, results: Dict):
         """Print test results summary."""

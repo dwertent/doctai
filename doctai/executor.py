@@ -50,17 +50,45 @@ class ScriptExecutor:
         if self.verbose:
             print(f"Working directory: {self.work_dir}")
     
-    def _generate_script_filename(self, script_type: str, script_index: int = 0) -> str:
+    def _extract_filename_from_script(self, script_content: str) -> Optional[str]:
+        """
+        Extract the intended filename from script comments.
+        
+        Args:
+            script_content: The script content
+            
+        Returns:
+            Extracted filename or None
+        """
+        # Look for filename in first few lines of comments
+        lines = script_content.split('\n')[:5]  # Check first 5 lines
+        
+        for line in lines:
+            # Match patterns like: # filename.sh or # filename.py
+            match = re.search(r'#\s*([a-zA-Z0-9_\-]+\.(sh|py|bash))', line)
+            if match:
+                return match.group(1)
+        
+        return None
+    
+    def _generate_script_filename(self, script_type: str, script_index: int = 0, script_content: str = "") -> str:
         """
         Generate a filename for the script following the _gen-<source>-<random>.<ext> pattern.
+        First tries to extract the AI's intended filename, then falls back to generated name.
         
         Args:
             script_type: Type of script (bash, python, etc.)
             script_index: Index of the script
+            script_content: The actual script content (to extract filename hints)
             
         Returns:
             Generated filename
         """
+        # First, try to extract filename from script content
+        extracted_name = self._extract_filename_from_script(script_content)
+        if extracted_name:
+            return f"_gen-{extracted_name}"
+        
         # Determine extension
         if script_type.lower() in ['bash', 'sh']:
             extension = '.sh'
@@ -120,7 +148,7 @@ class ScriptExecutor:
         
         # Generate script filename
         if self.save_generated_scripts:
-            script_filename = self._generate_script_filename(script_type, script_index)
+            script_filename = self._generate_script_filename(script_type, script_index, script_content)
             # Save in current directory for persistence
             script_path = Path.cwd() / script_filename
         else:

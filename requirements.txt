@@ -3,6 +3,7 @@
 # Core dependencies
 requests>=2.31.0
 PyYAML>=6.0
+halo>=0.0.31
 
 # Optional: For better HTTP handling
 urllib3>=2.0.0

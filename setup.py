@@ -28,6 +28,8 @@ setup(
     python_requires=">=3.8",
     install_requires=[
         "requests>=2.31.0",
+        "PyYAML>=6.0",
+        "halo>=0.0.31",
     ],
     entry_points={
         "console_scripts": [
