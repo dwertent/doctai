@@ -1,104 +1,45 @@
-/* Custom styles for Documentation Tester docs */
+/* Custom styles for doctai documentation */
 
-/* Footer custom styles */
-.footer-custom {
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid #eeebee;
-  text-align: center;
-  font-size: 0.875rem;
+/* Make content use more of the screen width */
+.main-content {
+  max-width: 100% !important;
 }
 
-.footer-custom p {
-  margin: 0.5rem 0;
+.main {
+  max-width: none !important;
 }
 
-.footer-custom a {
-  color: #5c5962;
-  text-decoration: none;
-  margin: 0 0.5rem;
-}
-
-.footer-custom a:hover {
-  color: #27262b;
-  text-decoration: underline;
-}
-
-/* Code block improvements */
-.highlight {
+/* Better code block styling */
+pre {
   border-radius: 6px;
-  margin: 1rem 0;
 }
 
-/* Callout boxes */
-.callout {
-  padding: 1rem;
-  margin: 1rem 0;
-  border-left: 4px solid;
-  border-radius: 4px;
-  background-color: #f7f7f7;
+/* Logo styling */
+.site-logo {
+  max-height: 50px;
 }
 
-.callout.warning {
-  border-color: #dc3545;
-  background-color: #f8d7da;
+/* Improve readability */
+.main-content p,
+.main-content li {
+  max-width: 50rem;
 }
 
-.callout.note {
-  border-color: #0366d6;
-  background-color: #d1ecf1;
+/* Better spacing for lists */
+.main-content ul,
+.main-content ol {
+  margin-bottom: 1.5em;
 }
 
-.callout.tip {
-  border-color: #28a745;
-  background-color: #d4edda;
+/* Style for command examples */
+.main-content code {
+  background-color: #f6f8fa;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
 }
 
-/* Table improvements */
-table {
-  border-collapse: collapse;
-  width: 100%;
-  margin: 1rem 0;
+/* Center image on homepage */
+.main-content img {
+  max-width: 100%;
+  height: auto;
 }
-
-th, td {
-  padding: 0.75rem;
-  text-align: left;
-  border-bottom: 1px solid #eeebee;
-}
-
-th {
-  background-color: #f7f7f7;
-  font-weight: 600;
-}
-
-/* Emoji sizing */
-img.emoji {
-  height: 1.2em;
-  width: 1.2em;
-  margin: 0 0.05em 0 0.1em;
-  vertical-align: -0.1em;
-}
-
-/* Navigation improvements */
-.nav-list .nav-list-item {
-  font-size: 14px;
-}
-
-/* Search results */
-.search-results-list-item {
-  padding: 0.5rem 0;
-}
-
-/* Anchor links */
-h2 .anchor-heading,
-h3 .anchor-heading {
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-h2:hover .anchor-heading,
-h3:hover .anchor-heading {
-  opacity: 1;
-}
-

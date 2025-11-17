@@ -101,6 +101,11 @@ callouts:
   tip:
     color: green
 
+# Layout settings - use full width
+nav_external_links:
+  - title: doctai on GitHub
+    url: https://github.com/dwertent/doctai
+
 # Custom CSS
 custom_css:
   - /assets/css/custom.css
