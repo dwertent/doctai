@@ -1,0 +1,36 @@
+# Example: Configuration with Custom Instructions
+# This example shows how to guide the AI on how to test your documentation
+
+docs:
+  - README.md
+  - docs/installation.md
+  - docs/tutorial.md
+
+provider: openai
+
+# Custom instructions guide the AI on what to focus on
+instructions: |
+  Important testing guidelines:
+  
+  1. For the installation guide:
+     - Test both pip and manual installation methods
+     - Verify it works on Ubuntu 22.04 LTS
+     - Use Python 3.10 or higher
+  
+  2. For the tutorial:
+     - Follow the "Quick Start" section step-by-step
+     - Use the test API endpoint: https://api.test.example.com
+     - Skip the "Advanced Configuration" section for now
+  
+  3. General requirements:
+     - Don't install Docker (not available in test environment)
+     - Use virtual environments for all Python dependencies
+     - Skip any examples that require database connections
+     - Focus on core functionality testing
+  
+  4. If any step fails, continue with remaining steps to gather complete results
+
+stop_on_failure: false
+max_iterations: 3
+timeout: 180
+

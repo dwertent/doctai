@@ -1,0 +1,104 @@
+/* Custom styles for Documentation Tester docs */
+
+/* Footer custom styles */
+.footer-custom {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eeebee;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+.footer-custom p {
+  margin: 0.5rem 0;
+}
+
+.footer-custom a {
+  color: #5c5962;
+  text-decoration: none;
+  margin: 0 0.5rem;
+}
+
+.footer-custom a:hover {
+  color: #27262b;
+  text-decoration: underline;
+}
+
+/* Code block improvements */
+.highlight {
+  border-radius: 6px;
+  margin: 1rem 0;
+}
+
+/* Callout boxes */
+.callout {
+  padding: 1rem;
+  margin: 1rem 0;
+  border-left: 4px solid;
+  border-radius: 4px;
+  background-color: #f7f7f7;
+}
+
+.callout.warning {
+  border-color: #dc3545;
+  background-color: #f8d7da;
+}
+
+.callout.note {
+  border-color: #0366d6;
+  background-color: #d1ecf1;
+}
+
+.callout.tip {
+  border-color: #28a745;
+  background-color: #d4edda;
+}
+
+/* Table improvements */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+th, td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #eeebee;
+}
+
+th {
+  background-color: #f7f7f7;
+  font-weight: 600;
+}
+
+/* Emoji sizing */
+img.emoji {
+  height: 1.2em;
+  width: 1.2em;
+  margin: 0 0.05em 0 0.1em;
+  vertical-align: -0.1em;
+}
+
+/* Navigation improvements */
+.nav-list .nav-list-item {
+  font-size: 14px;
+}
+
+/* Search results */
+.search-results-list-item {
+  padding: 0.5rem 0;
+}
+
+/* Anchor links */
+h2 .anchor-heading,
+h3 .anchor-heading {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+h2:hover .anchor-heading,
+h3:hover .anchor-heading {
+  opacity: 1;
+}
+

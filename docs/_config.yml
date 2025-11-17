@@ -1,0 +1,107 @@
+# Jekyll configuration for GitHub Pages
+
+title: Documentation Tester
+description: AI-powered documentation testing tool
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site
+
+# Theme
+theme: just-the-docs
+color_scheme: light
+
+# Logo and branding
+logo: "/assets/images/logo.png"
+favicon_ico: "/assets/images/favicon.ico"
+
+# Search
+search_enabled: true
+search:
+  heading_level: 2
+  previews: 3
+  preview_words_before: 5
+  preview_words_after: 10
+  tokenizer_separator: /[\s/]+/
+  rel_url: true
+  button: false
+
+# Aux links for the upper right navigation
+aux_links:
+  "GitHub":
+    - "//github.com/yourusername/doc-tester"
+  "PyPI":
+    - "//pypi.org/project/doc-tester"
+
+# Footer content
+footer_content: "Copyright &copy; 2025 Documentation Tester Contributors. Distributed under the <a href=\"https://github.com/yourusername/doc-tester/blob/main/LICENSE\">MIT License</a>."
+
+# Footer "Edit this page on GitHub" link
+gh_edit_link: true
+gh_edit_link_text: "Edit this page on GitHub"
+gh_edit_repository: "https://github.com/yourusername/doc-tester"
+gh_edit_branch: "main"
+gh_edit_view_mode: "tree"
+
+# Collections
+collections:
+  getting-started:
+    output: true
+  guides:
+    output: true
+  reference:
+    output: true
+  changelog:
+    output: true
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+  - scope:
+      path: "getting-started"
+    values:
+      layout: "default"
+      parent: "Getting Started"
+  - scope:
+      path: "guides"
+    values:
+      layout: "default"
+      parent: "Guides"
+  - scope:
+      path: "reference"
+    values:
+      layout: "default"
+      parent: "Reference"
+  - scope:
+      path: "changelog"
+    values:
+      layout: "default"
+      parent: "Changelog"
+
+# Plugins
+plugins:
+  - jekyll-seo-tag
+  - jekyll-github-metadata
+  - jekyll-include-cache
+
+# Enable copy code button
+enable_copy_code_button: true
+
+# Back to top link
+back_to_top: true
+back_to_top_text: "Back to top"
+
+# Callouts
+callouts:
+  warning:
+    color: red
+  note:
+    color: blue
+  tip:
+    color: green
+
+# Custom CSS
+custom_css:
+  - /assets/css/custom.css
+

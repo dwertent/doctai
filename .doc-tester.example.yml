@@ -1,0 +1,66 @@
+# Documentation Tester Configuration File
+# Copy this file to .doc-tester.yml and customize for your project
+
+# Documentation sources to test
+# Can be file paths, directory paths, or URLs
+docs:
+  - README.md
+  - docs/installation.md
+  - docs/quickstart.md
+  # - https://example.com/docs/api.md
+
+# AI Provider configuration
+# Options: openai, anthropic, gemini, custom
+provider: openai
+
+# Model to use (optional, uses provider default if not specified)
+# model: gpt-4o                    # For OpenAI
+# model: claude-3-5-sonnet-20241022 # For Anthropic
+# model: gemini-1.5-pro-latest      # For Gemini
+
+# API Key Environment Variable (optional, default: DOC_TESTER_API_KEY)
+# Specify which environment variable contains your API key
+# Useful if you prefer provider-specific env vars like OPENAI_API_KEY
+# api_key_env_var: ANTHROPIC_API_KEY  # or OPENAI_API_KEY, GEMINI_API_KEY, etc.
+
+# Custom API URL (only needed for custom provider)
+# api_url: https://your-api.com/v1/chat
+
+# Working directory for script execution (optional)
+# work_dir: /tmp/doc-tests
+
+# Stop execution after first script failure (optional, default: false)
+stop_on_failure: false
+
+# Maximum AI conversation iterations (optional, default: 3)
+max_iterations: 3
+
+# AI request timeout in seconds (optional, default: 120)
+timeout: 120
+
+# Custom instructions for the AI (optional)
+# Provide additional context or specific requirements for testing
+# This helps guide the AI on HOW to test your documentation
+instructions: |
+  - In the installation guide, test both pip and conda installation methods
+  - For API examples, use the test endpoint: https://api.test.example.com
+  - Skip examples that require a database connection
+  - Focus on testing core functionality first
+  - If Docker is mentioned, skip those sections (not available in CI)
+
+# Alternative: instructions can also be a simple string
+# instructions: "Test on Ubuntu 22.04. Use Python 3.10+. Skip Docker examples."
+
+# Or as a list
+# instructions:
+#   - Test the installation on Ubuntu 22.04
+#   - Use Python 3.10 or higher
+#   - Skip Docker examples
+
+# Notes:
+# - API keys should NEVER be stored in config files
+# - Use environment variables or GitHub Secrets for API keys
+# - Command-line arguments override config file settings
+# - Config file can be in YAML or JSON format
+# - Instructions help the AI understand your testing environment and requirements
+
