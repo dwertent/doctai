@@ -5,11 +5,11 @@ parent: Guides
 nav_order: 4
 ---
 
-# Documentation Tester - Complete Feature Summary
+# doctai - Complete Feature Summary
 
 ## 🎉 Three Major Features Added Today!
 
-This document summarizes all the features added to Documentation Tester in this session.
+This document summarizes all the features added to doctai in this session.
 
 ---
 
@@ -36,14 +36,14 @@ model: gemini-1.5-pro-latest
 
 **Command line:**
 ```bash
-doc-tester --docs README.md \
+doctai --docs README.md \
   --provider gemini \
   --api-key $GEMINI_API_KEY
 ```
 
 **GitHub Actions:**
 ```yaml
-- run: doc-tester --api-key ${{ secrets.GEMINI_API_KEY }} --provider gemini
+- run: doctai --api-key ${{ secrets.GEMINI_API_KEY }} --provider gemini
 ```
 
 ### Files Created/Modified
@@ -71,7 +71,7 @@ Allows storing all settings in a configuration file instead of passing them via 
 
 ### How to Use
 
-**Create `.doc-tester.yml`:**
+**Create `.doctai.yml`:**
 ```yaml
 docs:
   - README.md
@@ -86,19 +86,19 @@ max_iterations: 3
 
 **Run (no args needed!):**
 ```bash
-doc-tester --api-key $API_KEY
+doctai --api-key $API_KEY
 ```
 
 ### Supported Formats
 
 **YAML** (recommended):
-- `.doc-tester.yml`
-- `.doc-tester.yaml`
-- `doc-tester.yml`
+- `.doctai.yml`
+- `.doctai.yaml`
+- `doctai.yml`
 
 **JSON**:
-- `.doc-tester.json`
-- `doc-tester.json`
+- `.doctai.json`
+- `doctai.json`
 
 ### Configuration Options
 
@@ -120,16 +120,16 @@ Command-line arguments always override config:
 ```bash
 # Config has provider: openai
 # This uses gemini instead:
-doc-tester --provider gemini --api-key $API_KEY
+doctai --provider gemini --api-key $API_KEY
 ```
 
 ### Files Created/Modified
 - ✅ `doc_tester/config.py` - New module (280 lines)
 - ✅ `doc_tester/cli.py` - Integrated config loading
 - ✅ `.github/workflows/test-docs.yml` - Auto-loads config
-- ✅ `.doc-tester.example.yml` - YAML template
-- ✅ `.doc-tester.example.json` - JSON template
-- ✅ `.doc-tester.yml` - Working example
+- ✅ `.doctai.example.yml` - YAML template
+- ✅ `.doctai.example.json` - JSON template
+- ✅ `.doctai.yml` - Working example
 - ✅ `CONFIG.md` - Complete configuration guide
 
 **Documentation:** See [CONFIG.md](CONFIG.md)
@@ -165,7 +165,7 @@ instructions: |
 
 **Via command line:**
 ```bash
-doc-tester --docs README.md \
+doctai --docs README.md \
   --instructions "Test on Ubuntu. Skip Docker." \
   --api-key $API_KEY
 ```
@@ -227,7 +227,7 @@ instructions: |
 ### Example: Complete Setup
 
 ```yaml
-# .doc-tester.yml
+# .doctai.yml
 docs:
   - README.md
   - docs/installation.md
@@ -254,13 +254,13 @@ max_iterations: 3
 **Run it:**
 ```bash
 # Feature 2: Just needs API key, rest from config!
-doc-tester --api-key $GEMINI_API_KEY
+doctai --api-key $GEMINI_API_KEY
 ```
 
 **GitHub Actions:**
 ```yaml
 # Automatically uses config file
-- run: doc-tester --api-key ${{ secrets.GEMINI_API_KEY }}
+- run: doctai --api-key ${{ secrets.GEMINI_API_KEY }}
 ```
 
 ---
@@ -295,7 +295,7 @@ doc-tester --api-key $GEMINI_API_KEY
 
 ```bash
 # 1. Create config
-cat > .doc-tester.yml << 'EOF'
+cat > .doctai.yml << 'EOF'
 docs:
   - README.md
   - docs/installation.md
@@ -310,8 +310,8 @@ instructions: |
 EOF
 
 # 2. Test locally
-export DOC_TESTER_API_KEY="your-gemini-api-key"
-doc-tester --api-key $DOC_TESTER_API_KEY
+export DOCTAI_API_KEY="your-gemini-api-key"
+doctai --api-key $DOCTAI_API_KEY
 
 # 3. Add to GitHub Actions
 # (workflow automatically uses config file)
@@ -325,9 +325,9 @@ doc-tester --api-key $DOC_TESTER_API_KEY
 ### All Command-Line Options
 
 ```bash
-doc-tester \
+doctai \
   --docs README.md docs/ https://example.com/doc.md \
-  --config .doc-tester.yml \
+  --config .doctai.yml \
   --provider gemini \
   --model gemini-1.5-pro-latest \
   --api-key $API_KEY \
@@ -343,7 +343,7 @@ doc-tester \
 
 But with config file, just:
 ```bash
-doc-tester --api-key $API_KEY
+doctai --api-key $API_KEY
 ```
 
 ---
@@ -404,11 +404,11 @@ Three powerful features added today:
 2. **Config Files** → Easier to use, better CI/CD integration
 3. **Custom Instructions** → Smarter AI, better success rates
 
-**Result:** Documentation Tester is now more powerful, flexible, and easier to use than ever!
+**Result:** doctai is now more powerful, flexible, and easier to use than ever!
 
 ### Before Today
 ```bash
-doc-tester \
+doctai \
   --docs README.md docs/install.md docs/tutorial.md \
   --provider openai \
   --model gpt-4o \
@@ -417,7 +417,7 @@ doc-tester \
 
 ### After Today
 ```yaml
-# .doc-tester.yml
+# .doctai.yml
 docs:
   - README.md
   - docs/install.md
@@ -427,14 +427,14 @@ instructions: "Test on Ubuntu 22.04. Skip Docker."
 ```
 
 ```bash
-doc-tester --api-key $GEMINI_API_KEY
+doctai --api-key $GEMINI_API_KEY
 ```
 
 **Much better!** 🚀
 
 ---
 
-**Documentation Tester v0.1.0** - Because documentation should always work!
+**doctai v0.1.0** - Because documentation should always work!
 
 Made with ❤️ and ☕
 

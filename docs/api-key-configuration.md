@@ -7,7 +7,7 @@ nav_order: 5
 # API Key Configuration
 {: .no_toc }
 
-The doc-tester provides flexible ways to configure which environment variable contains your API key.
+The doctai provides flexible ways to configure which environment variable contains your API key.
 {: .fs-6 .fw-300 }
 
 ## Table of contents
@@ -20,23 +20,23 @@ The doc-tester provides flexible ways to configure which environment variable co
 
 ## Default Behavior
 
-By default, the tool reads the API key from the `DOC_TESTER_API_KEY` environment variable:
+By default, the tool reads the API key from the `DOCTAI_API_KEY` environment variable:
 
 ```bash
-export DOC_TESTER_API_KEY="your-api-key-here"
-doc-tester --docs README.md
+export DOCTAI_API_KEY="your-api-key-here"
+doctai --docs README.md
 ```
 
 ## Using Provider-Specific Environment Variables
 
-If you prefer to use provider-specific environment variables (e.g., `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`), you can configure this in your `.doc-tester.yml` file:
+If you prefer to use provider-specific environment variables (e.g., `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`), you can configure this in your `.doctai.yml` file:
 
 ### Method 1: Config File (Recommended)
 
 Add the `api_key_env_var` field to your config file:
 
 ```yaml
-# .doc-tester.yml
+# .doctai.yml
 provider: anthropic
 model: claude-sonnet-4-20250514
 api_key_env_var: ANTHROPIC_API_KEY
@@ -46,19 +46,19 @@ Then set your provider-specific environment variable:
 
 ```bash
 export ANTHROPIC_API_KEY="sk-ant-..."
-doc-tester
+doctai
 ```
 
-The tool will automatically read from `ANTHROPIC_API_KEY` instead of `DOC_TESTER_API_KEY`.
+The tool will automatically read from `ANTHROPIC_API_KEY` instead of `DOCTAI_API_KEY`.
 
 ### Method 2: Environment Variable
 
-You can also specify which environment variable to use via `DOC_TESTER_API_KEY_ENV_VAR`:
+You can also specify which environment variable to use via `DOCTAI_API_KEY_ENV_VAR`:
 
 ```bash
 export OPENAI_API_KEY="sk-..."
-export DOC_TESTER_API_KEY_ENV_VAR=OPENAI_API_KEY
-doc-tester --docs README.md
+export DOCTAI_API_KEY_ENV_VAR=OPENAI_API_KEY
+doctai --docs README.md
 ```
 
 ## Multiple Setups / Projects
@@ -67,7 +67,7 @@ This feature is particularly useful when working with multiple projects that use
 
 ### Project A (Using Claude):
 ```yaml
-# projectA/.doc-tester.yml
+# projectA/.doctai.yml
 provider: anthropic
 api_key_env_var: ANTHROPIC_API_KEY
 ```
@@ -75,12 +75,12 @@ api_key_env_var: ANTHROPIC_API_KEY
 ```bash
 cd projectA
 export ANTHROPIC_API_KEY="sk-ant-..."
-doc-tester
+doctai
 ```
 
 ### Project B (Using OpenAI):
 ```yaml
-# projectB/.doc-tester.yml
+# projectB/.doctai.yml
 provider: openai
 api_key_env_var: OPENAI_API_KEY
 ```
@@ -88,12 +88,12 @@ api_key_env_var: OPENAI_API_KEY
 ```bash
 cd projectB
 export OPENAI_API_KEY="sk-..."
-doc-tester
+doctai
 ```
 
 ### Project C (Using Gemini):
 ```yaml
-# projectC/.doc-tester.yml
+# projectC/.doctai.yml
 provider: gemini
 api_key_env_var: GEMINI_API_KEY
 ```
@@ -101,7 +101,7 @@ api_key_env_var: GEMINI_API_KEY
 ```bash
 cd projectC
 export GEMINI_API_KEY="..."
-doc-tester
+doctai
 ```
 
 ## Priority Order
@@ -109,8 +109,8 @@ doc-tester
 The tool checks for the API key in the following order:
 
 1. **Command-line argument**: `--api-key YOUR_KEY` (highest priority)
-2. **Specified environment variable**: From config file or `DOC_TESTER_API_KEY_ENV_VAR`
-3. **Default environment variable**: `DOC_TESTER_API_KEY` (fallback)
+2. **Specified environment variable**: From config file or `DOCTAI_API_KEY_ENV_VAR`
+3. **Default environment variable**: `DOCTAI_API_KEY` (fallback)
 
 ## Examples
 
@@ -119,7 +119,7 @@ The tool checks for the API key in the following order:
 Many developers already have environment variables like `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` set up. Just configure the tool to use them:
 
 ```yaml
-# .doc-tester.yml
+# .doctai.yml
 provider: openai
 model: gpt-4o
 api_key_env_var: OPENAI_API_KEY
@@ -135,11 +135,11 @@ export DEV_API_KEY="sk-dev-..."
 export PROD_API_KEY="sk-prod-..."
 
 # In dev config
-# .doc-tester.yml
+# .doctai.yml
 api_key_env_var: DEV_API_KEY
 
 # In prod config
-# .doc-tester.prod.yml
+# .doctai.prod.yml
 api_key_env_var: PROD_API_KEY
 ```
 
@@ -162,12 +162,12 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           pip install -e .
-          doc-tester
+          doctai
 ```
 
 With config:
 ```yaml
-# .doc-tester.yml
+# .doctai.yml
 provider: anthropic
 api_key_env_var: ANTHROPIC_API_KEY
 ```
@@ -192,17 +192,17 @@ If the API key is not being found:
 
 2. **Check config file**:
    ```bash
-   cat .doc-tester.yml | grep api_key_env_var
+   cat .doctai.yml | grep api_key_env_var
    ```
 
 3. **Run with verbose output**:
    ```bash
-   doc-tester --docs README.md
+   doctai --docs README.md
    # Should print: "Using API key from environment variable: ANTHROPIC_API_KEY"
    ```
 
 4. **Test with explicit key** (for debugging):
    ```bash
-   doc-tester --docs README.md --api-key "your-key"
+   doctai --docs README.md --api-key "your-key"
    ```
 

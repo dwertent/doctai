@@ -44,7 +44,7 @@ class ScriptExecutor:
             self.work_dir.mkdir(parents=True, exist_ok=True)
             self.cleanup_work_dir = False
         else:
-            self.work_dir = Path(tempfile.mkdtemp(prefix="doc_tester_"))
+            self.work_dir = Path(tempfile.mkdtemp(prefix="doctai_"))
             self.cleanup_work_dir = True
         
         if self.verbose:

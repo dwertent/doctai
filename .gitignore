@@ -47,16 +47,16 @@ Thumbs.db
 *.log
 tmp/
 temp/
-doc_tester_*/
+doctai_*/
 
-# Generated scripts from doc-tester
+# Generated scripts from doctai
 _gen-*
 
 # Config files with potential secrets
-# (Keep .doc-tester.yml if it has no secrets, or add to repo)
-.doc-tester.local.yml
-.doc-tester.local.yaml
-.doc-tester.local.json
+# (Keep .doctai.yml if it has no secrets, or add to repo)
+.doctai.local.yml
+.doctai.local.yaml
+.doctai.local.json
 *-local.yml
 *-local.yaml
 *-local.json

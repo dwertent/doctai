@@ -19,7 +19,7 @@ While the AI is great at following documentation, sometimes you need to provide 
 
 ```bash
 # AI just follows the documentation as written
-doc-tester --docs README.md --api-key $API_KEY
+doctai --docs README.md --api-key $API_KEY
 ```
 
 The AI will:
@@ -31,7 +31,7 @@ The AI will:
 ### With Instructions
 
 ```yaml
-# .doc-tester.yml
+# .doctai.yml
 docs:
   - README.md
 
@@ -52,7 +52,7 @@ The AI will:
 ### Method 1: In Config File
 
 ```yaml
-# .doc-tester.yml
+# .doctai.yml
 docs:
   - README.md
   - docs/installation.md
@@ -66,7 +66,7 @@ instructions: |
 ### Method 2: Command Line
 
 ```bash
-doc-tester --docs README.md \
+doctai --docs README.md \
   --instructions "Test installation on Ubuntu. Skip Docker examples." \
   --api-key $API_KEY
 ```
@@ -76,13 +76,13 @@ doc-tester --docs README.md \
 Config provides defaults, CLI overrides:
 
 ```yaml
-# .doc-tester.yml
+# .doctai.yml
 instructions: "Default testing guidelines"
 ```
 
 ```bash
 # Override with specific instructions
-doc-tester --instructions "Special test for this run" --api-key $API_KEY
+doctai --instructions "Special test for this run" --api-key $API_KEY
 ```
 
 ## Instruction Types
@@ -365,7 +365,7 @@ instructions:
 
 **Example:**
 ```yaml
-# .doc-tester.yml
+# .doctai.yml
 instructions: "Standard testing guidelines..."
 ```
 
@@ -378,7 +378,7 @@ instructions: "Standard testing guidelines..."
 
 **Example:**
 ```bash
-doc-tester --instructions "Special test case" --api-key $KEY
+doctai --instructions "Special test case" --api-key $KEY
 ```
 
 ## GitHub Actions Integration
@@ -388,10 +388,10 @@ In your workflow, instructions from config file are automatically used:
 ```yaml
 # .github/workflows/test-docs.yml
 - name: Test Documentation
-  run: doc-tester --api-key ${{ secrets.OPENAI_API_KEY }}
+  run: doctai --api-key ${{ secrets.OPENAI_API_KEY }}
 ```
 
-The workflow will use instructions from your `.doc-tester.yml` automatically!
+The workflow will use instructions from your `.doctai.yml` automatically!
 
 ## Advanced: Dynamic Instructions
 
@@ -407,7 +407,7 @@ else
   INSTRUCTIONS="Local environment. Full features available."
 fi
 
-doc-tester --instructions "$INSTRUCTIONS" --api-key $API_KEY
+doctai --instructions "$INSTRUCTIONS" --api-key $API_KEY
 ```
 
 ## Common Use Cases
@@ -469,13 +469,13 @@ instructions: |
 2. **Verify CLI override:**
    ```bash
    # CLI always wins
-   doc-tester --instructions "CLI overrides config"
+   doctai --instructions "CLI overrides config"
    ```
 
 3. **Test verbosity:**
    ```bash
    # See what AI receives
-   doc-tester --docs README.md --instructions "test" --api-key $KEY
+   doctai --docs README.md --instructions "test" --api-key $KEY
    ```
 
 ### AI Ignoring Instructions?
@@ -504,7 +504,7 @@ Custom instructions let you:
 **Quick Start:**
 
 ```yaml
-# .doc-tester.yml
+# .doctai.yml
 docs:
   - README.md
 
@@ -515,7 +515,7 @@ instructions: |
 ```
 
 ```bash
-doc-tester --api-key $API_KEY
+doctai --api-key $API_KEY
 ```
 
 For more examples, see [examples/config-with-instructions.yml](examples/config-with-instructions.yml).

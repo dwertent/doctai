@@ -11,9 +11,9 @@ Manages the entire documentation testing workflow:
 import json
 import re
 from typing import Dict, List, Optional, Tuple
-from doc_tester.fetcher import DocumentationFetcher
-from doc_tester.ai_client import AIClient
-from doc_tester.executor import ScriptExecutor
+from doctai.fetcher import DocumentationFetcher
+from doctai.ai_client import AIClient
+from doctai.executor import ScriptExecutor
 
 
 class DocumentationTester:

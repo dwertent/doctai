@@ -10,7 +10,7 @@ E2E tests validate that the AI generates **high-quality, complete scripts** from
 
 ```bash
 # Set your API key
-export DOC_TESTER_API_KEY="your-api-key"
+export DOCTAI_API_KEY="your-api-key"
 
 # Run quality validation tests
 pytest tests/e2e/ -v -m requires_api
@@ -80,7 +80,7 @@ chmod +x tests/fixtures/mock-projects/*/golden_script.sh
 
 **"No script was generated"**
 - Check API key is valid
-- Verify doc-tester can access mock README
+- Verify doctai can access mock README
 
 **"AI comparison failed"**
 - Check network connectivity

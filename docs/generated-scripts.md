@@ -7,7 +7,7 @@ nav_order: 6
 # Generated Scripts
 {: .no_toc }
 
-The doc-tester saves all generated scripts to disk for inspection and debugging.
+The doctai saves all generated scripts to disk for inspection and debugging.
 {: .fs-6 .fw-300 }
 
 ## Table of contents
@@ -41,7 +41,7 @@ _gen-<source-path>-<random>.<ext>
 All generated scripts are automatically ignored by git:
 
 ```gitignore
-# Generated scripts from doc-tester
+# Generated scripts from doctai
 _gen-*
 ```
 
@@ -52,8 +52,8 @@ This means you can inspect the scripts locally without committing them.
 Scripts are saved in the current working directory where you run the command:
 
 ```bash
-# Run doc-tester
-doc-tester --docs README.md
+# Run doctai
+doctai --docs README.md
 
 # Scripts will be saved in current directory
 ls _gen-*
@@ -65,7 +65,7 @@ ls _gen-*
 
 When you run:
 ```bash
-doc-tester --docs path/to/docs.md
+doctai --docs path/to/docs.md
 ```
 
 The tool will:

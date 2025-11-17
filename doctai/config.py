@@ -14,12 +14,12 @@ class ConfigLoader:
     """Loads configuration from files."""
     
     DEFAULT_CONFIG_FILES = [
-        ".doc-tester.yml",
-        ".doc-tester.yaml",
-        ".doc-tester.json",
-        "doc-tester.yml",
-        "doc-tester.yaml",
-        "doc-tester.json",
+        ".doctai.yml",
+        ".doctai.yaml",
+        ".doctai.json",
+        "doctai.yml",
+        "doctai.yaml",
+        "doctai.json",
     ]
     
     def __init__(self, config_path: Optional[str] = None):

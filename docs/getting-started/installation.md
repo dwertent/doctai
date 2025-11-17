@@ -7,7 +7,7 @@ nav_order: 1
 
 # Installation Guide
 
-Complete installation guide for Documentation Tester.
+Complete installation guide for doctai.
 
 ## Prerequisites
 
@@ -22,7 +22,7 @@ Complete installation guide for Documentation Tester.
 1. **Clone or download the repository**
 
 ```bash
-cd /path/to/doc-tester
+cd /path/to/doctai
 ```
 
 2. **Create a virtual environment** (recommended)
@@ -49,20 +49,20 @@ pip install -e .
 5. **Verify installation**
 
 ```bash
-doc-tester --version
+doctai --version
 python test_installation.py
 ```
 
 ### Method 2: Install from PyPI (When Published)
 
 ```bash
-pip install doc-tester
+pip install doctai
 ```
 
 ### Method 3: Install with pipx (Isolated Installation)
 
 ```bash
-pipx install doc-tester
+pipx install doctai
 ```
 
 ## Post-Installation Setup
@@ -93,8 +93,8 @@ You need an API key from one of these providers:
 Add to your `~/.bashrc`, `~/.zshrc`, or `~/.bash_profile`:
 
 ```bash
-export DOC_TESTER_API_KEY="your-api-key-here"
-export DOC_TESTER_PROVIDER="openai"  # or "anthropic"
+export DOCTAI_API_KEY="your-api-key-here"
+export DOCTAI_PROVIDER="openai"  # or "anthropic"
 ```
 
 Then reload:
@@ -105,22 +105,22 @@ source ~/.bashrc  # or ~/.zshrc
 #### Option B: Pass via Command Line
 
 ```bash
-doc-tester --docs README.md --api-key "your-api-key-here"
+doctai --docs README.md --api-key "your-api-key-here"
 ```
 
 #### Option C: Create a Config File
 
-Create `~/.doc-tester.env`:
+Create `~/.doctai.env`:
 
 ```bash
-DOC_TESTER_API_KEY=your-api-key-here
-DOC_TESTER_PROVIDER=openai
-DOC_TESTER_MODEL=gpt-4o
+DOCTAI_API_KEY=your-api-key-here
+DOCTAI_PROVIDER=openai
+DOCTAI_MODEL=gpt-4o
 ```
 
 Then load it:
 ```bash
-source ~/.doc-tester.env
+source ~/.doctai.env
 ```
 
 ### 3. Test Installation
@@ -134,7 +134,7 @@ python test_installation.py
 Or test with the example:
 
 ```bash
-doc-tester --docs examples/sample-documentation.md --api-key $DOC_TESTER_API_KEY
+doctai --docs examples/sample-documentation.md --api-key $DOCTAI_API_KEY
 ```
 
 ## Troubleshooting
@@ -203,10 +203,10 @@ export HTTPS_PROXY=http://proxy.example.com:8080
 
 ## Uninstallation
 
-To remove Documentation Tester:
+To remove doctai:
 
 ```bash
-pip uninstall doc-tester
+pip uninstall doctai
 ```
 
 To also remove dependencies:
@@ -227,7 +227,7 @@ pip install -e . --upgrade
 ### From PyPI
 
 ```bash
-pip install --upgrade doc-tester
+pip install --upgrade doctai
 ```
 
 ## Development Setup
@@ -236,8 +236,8 @@ For contributors:
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/doc-tester.git
-cd doc-tester
+git clone https://github.com/dwertent/doctai.git
+cd doctai
 
 # Create virtual environment
 python3 -m venv venv
@@ -262,8 +262,8 @@ flake8 doc_tester/
 Coming soon:
 
 ```bash
-docker pull doc-tester:latest
-docker run -e DOC_TESTER_API_KEY=$API_KEY doc-tester --docs README.md
+docker pull doctai:latest
+docker run -e DOCTAI_API_KEY=$API_KEY doctai --docs README.md
 ```
 
 ## Platform-Specific Notes
@@ -293,7 +293,7 @@ For GitHub Actions, see `.github/workflows/test-docs.yml`
 For other CI systems:
 
 ```bash
-pip install doc-tester
+pip install doctai
 # Or:
 pip install -r requirements.txt && pip install -e .
 ```
@@ -301,8 +301,8 @@ pip install -r requirements.txt && pip install -e .
 ## Getting Help
 
 - **Documentation**: See README.md, QUICKSTART.md
-- **Issues**: https://github.com/yourusername/doc-tester/issues
-- **Discussions**: https://github.com/yourusername/doc-tester/discussions
+- **Issues**: https://github.com/dwertent/doctai/issues
+- **Discussions**: https://github.com/dwertent/doctai/discussions
 
 ---
 

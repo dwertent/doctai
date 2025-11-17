@@ -5,11 +5,11 @@ parent: Reference
 nav_order: 3
 ---
 
-# Documentation Tester - Project Summary
+# doctai - Project Summary
 
 ## Overview
 
-**Documentation Tester** is an AI-powered tool that automatically tests documentation by reading it, understanding it through AI, generating executable test scripts, and running them to verify accuracy.
+**doctai** is an AI-powered tool that automatically tests documentation by reading it, understanding it through AI, generating executable test scripts, and running them to verify accuracy.
 
 ## Problem Statement
 
@@ -57,7 +57,7 @@ An automated system that:
 ## Project Structure
 
 ```
-doc-tester/
+doctai/
 ├── doc_tester/              # Core package
 │   ├── __init__.py          # Package initialization
 │   ├── fetcher.py           # Documentation retrieval
@@ -171,27 +171,27 @@ doc-tester/
 
 ### Basic Usage
 ```bash
-doc-tester --docs README.md --api-key $OPENAI_API_KEY
+doctai --docs README.md --api-key $OPENAI_API_KEY
 ```
 
 ### Multiple Sources
 ```bash
-doc-tester --docs README.md docs/setup.md --api-key $API_KEY
+doctai --docs README.md docs/setup.md --api-key $API_KEY
 ```
 
 ### From URL
 ```bash
-doc-tester --docs https://example.com/docs.md --api-key $API_KEY
+doctai --docs https://example.com/docs.md --api-key $API_KEY
 ```
 
 ### With Output
 ```bash
-doc-tester --docs README.md --api-key $API_KEY --output results.json
+doctai --docs README.md --api-key $API_KEY --output results.json
 ```
 
 ### In GitHub Actions
 ```yaml
-- run: doc-tester --docs README.md --api-key ${{ secrets.OPENAI_API_KEY }}
+- run: doctai --docs README.md --api-key ${{ secrets.OPENAI_API_KEY }}
 ```
 
 ## Technical Specifications
@@ -221,8 +221,8 @@ doc-tester --docs README.md --api-key $API_KEY --output results.json
 
 ### Quick Install
 ```bash
-git clone https://github.com/yourusername/doc-tester.git
-cd doc-tester
+git clone https://github.com/dwertent/doctai.git
+cd doctai
 ./test_setup.sh
 ```
 
@@ -243,8 +243,8 @@ python test_installation.py
 
 ### Test with Example
 ```bash
-export DOC_TESTER_API_KEY="your-key"
-doc-tester --docs examples/sample-documentation.md --api-key $DOC_TESTER_API_KEY
+export DOCTAI_API_KEY="your-key"
+doctai --docs examples/sample-documentation.md --api-key $DOCTAI_API_KEY
 ```
 
 ## GitHub Actions Integration
@@ -358,7 +358,7 @@ MIT License - Free for personal and commercial use
 
 ---
 
-**Documentation Tester** - Because documentation should always work! 🚀
+**doctai** - Because documentation should always work! 🚀
 
 Version: 0.1.0
 Last Updated: 2025-11-17

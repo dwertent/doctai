@@ -1,4 +1,4 @@
-"""Setup configuration for documentation tester."""
+"""Setup configuration for doctai."""
 
 from setuptools import setup, find_packages
 
@@ -6,13 +6,13 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="doc-tester",
+    name="doctai",
     version="0.1.0",
-    author="Documentation Tester Contributors",
+    author="doctai Contributors",
     description="AI-powered documentation testing tool",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/doc-tester",
+    url="https://github.com/dwertent/doctai",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 3 - Alpha",
@@ -31,7 +31,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "doc-tester=doc_tester.cli:main",
+            "doctai=doctai.cli:main",
         ],
     },
 )

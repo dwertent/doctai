@@ -7,14 +7,14 @@ nav_order: 1
 
 # Configuration File Guide
 
-Documentation Tester supports configuration files to make it easier to manage documentation sources and settings across your project.
+doctai supports configuration files to make it easier to manage documentation sources and settings across your project.
 
 ## Quick Start
 
 1. **Create a config file** in your project root:
 
 ```yaml
-# .doc-tester.yml
+# .doctai.yml
 docs:
   - README.md
   - docs/installation.md
@@ -26,7 +26,7 @@ provider: openai
 2. **Run without specifying docs**:
 
 ```bash
-doc-tester --api-key $API_KEY
+doctai --api-key $API_KEY
 ```
 
 The tool will automatically find and use your config file!
@@ -35,7 +35,7 @@ The tool will automatically find and use your config file!
 
 ### YAML Format (Recommended)
 
-**Filename**: `.doc-tester.yml` or `.doc-tester.yaml`
+**Filename**: `.doctai.yml` or `.doctai.yaml`
 
 ```yaml
 # Documentation sources to test
@@ -69,12 +69,12 @@ timeout: 120
 The tool searches for config files in this order:
 
 1. Path specified with `--config` flag
-2. `.doc-tester.yml` (current directory)
-3. `.doc-tester.yaml`
-4. `doc-tester.yml`
-5. `doc-tester.yaml`
+2. `.doctai.yml` (current directory)
+3. `.doctai.yaml`
+4. `doctai.yml`
+5. `doctai.yaml`
 
-**Recommended:** Use `.doc-tester.yml` in your project root.
+**Recommended:** Use `.doctai.yml` in your project root.
 
 ## Configuration Options
 
@@ -108,7 +108,7 @@ AI provider to use.
 provider: gemini
 ```
 
-### `api_key_env_var` (optional, default: DOC_TESTER_API_KEY)
+### `api_key_env_var` (optional, default: DOCTAI_API_KEY)
 
 Specifies which environment variable contains your API key.
 
@@ -125,7 +125,7 @@ api_key_env_var: ANTHROPIC_API_KEY
 Then set the environment variable:
 ```bash
 export ANTHROPIC_API_KEY="sk-ant-..."
-doc-tester
+doctai
 ```
 
 **Alternative keys:** `api_key_env`, `api_key_var`
@@ -240,7 +240,7 @@ Command-line arguments always take precedence over config file settings.
 ```bash
 # Config file has: docs: [README.md]
 # This overrides to test INSTALL.md instead:
-doc-tester --docs INSTALL.md --api-key $API_KEY
+doctai --docs INSTALL.md --api-key $API_KEY
 ```
 
 **Override order (highest to lowest priority):**
@@ -253,7 +253,7 @@ doc-tester --docs INSTALL.md --api-key $API_KEY
 ### Example 1: Simple Config
 
 ```yaml
-# .doc-tester.yml
+# .doctai.yml
 docs:
   - README.md
   - INSTALL.md
@@ -263,13 +263,13 @@ provider: openai
 
 ```bash
 # Uses config file
-doc-tester --api-key $OPENAI_API_KEY
+doctai --api-key $OPENAI_API_KEY
 ```
 
 ### Example 2: Override Provider
 
 ```yaml
-# .doc-tester.yml
+# .doctai.yml
 docs:
   - README.md
 
@@ -278,7 +278,7 @@ provider: openai
 
 ```bash
 # Uses docs from config, but switches to Gemini
-doc-tester --api-key $GEMINI_API_KEY --provider gemini
+doctai --api-key $GEMINI_API_KEY --provider gemini
 ```
 
 ### Example 3: Custom Config Location
@@ -290,14 +290,14 @@ docs:
 ```
 
 ```bash
-doc-tester --config config/doc-test.yml --api-key $API_KEY
+doctai --config config/doc-test.yml --api-key $API_KEY
 ```
 
 ### Example 4: Multiple Environments
 
 **Development config:**
 ```yaml
-# .doc-tester.yml
+# .doctai.yml
 docs:
   - README.md
   - docs/development.md
@@ -308,7 +308,7 @@ model: gemini-1.5-flash-latest
 
 **Production config:**
 ```yaml
-# .doc-tester.production.yml
+# .doctai.production.yml
 docs:
   - README.md
   - docs/installation.md
@@ -322,10 +322,10 @@ stop_on_failure: true
 
 ```bash
 # Development
-doc-tester --api-key $GEMINI_API_KEY
+doctai --api-key $GEMINI_API_KEY
 
 # Production
-doc-tester --config .doc-tester.production.yml --api-key $OPENAI_API_KEY
+doctai --config .doctai.production.yml --api-key $OPENAI_API_KEY
 ```
 
 ## GitHub Actions Integration
@@ -335,7 +335,7 @@ doc-tester --config .doc-tester.production.yml --api-key $OPENAI_API_KEY
 The workflow will automatically use your config file when no docs are specified:
 
 ```yaml
-# .doc-tester.yml in your repo
+# .doctai.yml in your repo
 docs:
   - README.md
   - docs/installation.md
@@ -355,8 +355,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install doc-tester
-      - run: doc-tester --api-key ${{ secrets.OPENAI_API_KEY }}
+      - run: pip install doctai
+      - run: doctai --api-key ${{ secrets.OPENAI_API_KEY }}
 ```
 
 ### Manual Override
@@ -374,14 +374,14 @@ The specified docs will override the config file.
 
 ### 1. ✅ Commit Config Files
 
-Commit `.doc-tester.yml` to your repository:
+Commit `.doctai.yml` to your repository:
 - ✅ Makes testing consistent across team
 - ✅ Documents what gets tested
 - ✅ Works automatically in CI/CD
 
 ```bash
-git add .doc-tester.yml
-git commit -m "Add doc-tester configuration"
+git add .doctai.yml
+git commit -m "Add doctai configuration"
 ```
 
 ### 2. ⚠️ Never Store API Keys in Config
@@ -400,22 +400,22 @@ api_key: sk-1234567890abcdef  # DANGEROUS!
 Create a local config that won't be committed:
 
 ```yaml
-# .doc-tester.local.yml (gitignored)
+# .doctai.local.yml (gitignored)
 provider: gemini  # Your preference
 model: gemini-1.5-flash-latest
 work_dir: /tmp/my-tests
 ```
 
 ```bash
-doc-tester --config .doc-tester.local.yml --api-key $API_KEY
+doctai --config .doctai.local.yml --api-key $API_KEY
 ```
 
 ### 4. 📝 Document Your Config
 
 ```yaml
-# .doc-tester.yml
+# .doctai.yml
 # This config tests our main user-facing documentation
-# Run with: doc-tester --api-key $OPENAI_API_KEY
+# Run with: doctai --api-key $OPENAI_API_KEY
 
 docs:
   - README.md        # Main project readme
@@ -430,13 +430,13 @@ max_iterations: 3
 
 ```bash
 # Quick local testing (cheap, fast)
-.doc-tester.yml               # Uses Gemini Flash
+.doctai.yml               # Uses Gemini Flash
 
 # CI/CD testing (thorough)
-.doc-tester.ci.yml           # Uses GPT-4o
+.doctai.ci.yml           # Uses GPT-4o
 
 # Release testing (comprehensive)
-.doc-tester.release.yml      # Tests all docs
+.doctai.release.yml      # Tests all docs
 ```
 
 ## Troubleshooting
@@ -446,7 +446,7 @@ max_iterations: 3
 **Problem:** No `--docs` argument and config file not found or has no `docs` field.
 
 **Solution:**
-1. Create `.doc-tester.yml` with `docs` field
+1. Create `.doctai.yml` with `docs` field
 2. Or specify `--docs` on command line
 3. Or use `--config` to point to your config file
 
@@ -455,7 +455,7 @@ max_iterations: 3
 **Problem:** Specified config file doesn't exist.
 
 ```bash
-doc-tester --config missing.yml --api-key $API_KEY
+doctai --config missing.yml --api-key $API_KEY
 ```
 
 **Solution:**
@@ -469,7 +469,7 @@ doc-tester --config missing.yml --api-key $API_KEY
 
 ```bash
 # Config has: docs: [README.md]
-doc-tester --docs INSTALL.md  # Ignores config docs
+doctai --docs INSTALL.md  # Ignores config docs
 ```
 
 **Solution:** This is expected behavior. CLI always wins. Remove CLI arg to use config.
@@ -498,15 +498,15 @@ model: gpt-4o
 
 See the [examples directory](examples/) for more config file examples:
 
-- `.doc-tester.example.yml` - YAML template
-- `.doc-tester.example.json` - JSON template
-- `.doc-tester.yml` - Working example for this project
+- `.doctai.example.yml` - YAML template
+- `.doctai.example.json` - JSON template
+- `.doctai.yml` - Working example for this project
 
 ## Migration from CLI-only
 
 **Before (CLI only):**
 ```bash
-doc-tester \
+doctai \
   --docs README.md docs/install.md docs/tutorial.md \
   --provider openai \
   --model gpt-4o \
@@ -517,7 +517,7 @@ doc-tester \
 **After (with config):**
 
 ```yaml
-# .doc-tester.yml
+# .doctai.yml
 docs:
   - README.md
   - docs/install.md
@@ -528,7 +528,7 @@ max_iterations: 3
 ```
 
 ```bash
-doc-tester --api-key $OPENAI_API_KEY
+doctai --api-key $OPENAI_API_KEY
 ```
 
 Much cleaner! 🎉
@@ -549,13 +549,13 @@ Much cleaner! 🎉
 
 ```bash
 # 1. Create config
-echo "docs:\n  - README.md\nprovider: openai" > .doc-tester.yml
+echo "docs:\n  - README.md\nprovider: openai" > .doctai.yml
 
 # 2. Test it
-doc-tester --api-key $OPENAI_API_KEY
+doctai --api-key $OPENAI_API_KEY
 
 # 3. Commit it
-git add .doc-tester.yml
+git add .doctai.yml
 git commit -m "Add documentation testing config"
 ```
 

@@ -1,6 +1,6 @@
 # Sample Project Setup Guide
 
-This is an example documentation file that can be tested with the Documentation Tester.
+This is an example documentation file that can be tested with the doctai.
 
 ## Prerequisites
 

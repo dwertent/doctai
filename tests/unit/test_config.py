@@ -5,7 +5,7 @@ Unit tests for the configuration loader.
 import pytest
 import yaml
 from pathlib import Path
-from doc_tester.config import ConfigLoader
+from doctai.config import ConfigLoader
 
 
 class TestConfigLoader:
@@ -14,7 +14,7 @@ class TestConfigLoader:
     def test_load_yaml_config(self, temp_dir, sample_config):
         """Test loading a YAML configuration file."""
         # Create config file
-        config_file = temp_dir / ".doc-tester.yml"
+        config_file = temp_dir / ".doctai.yml"
         with open(config_file, 'w') as f:
             yaml.dump(sample_config, f)
         
@@ -28,7 +28,7 @@ class TestConfigLoader:
     
     def test_get_docs(self, temp_dir):
         """Test extracting documentation sources."""
-        config_file = temp_dir / ".doc-tester.yml"
+        config_file = temp_dir / ".doctai.yml"
         config_file.write_text("""
 docs:
   - README.md
@@ -46,7 +46,7 @@ provider: openai
     
     def test_get_provider(self, temp_dir):
         """Test extracting AI provider."""
-        config_file = temp_dir / ".doc-tester.yml"
+        config_file = temp_dir / ".doctai.yml"
         config_file.write_text("""
 docs:
   - README.md
@@ -60,7 +60,7 @@ provider: gemini
     
     def test_get_instructions(self, temp_dir):
         """Test extracting custom instructions."""
-        config_file = temp_dir / ".doc-tester.yml"
+        config_file = temp_dir / ".doctai.yml"
         config_file.write_text("""
 docs:
   - README.md
@@ -79,7 +79,7 @@ instructions: |
     
     def test_instructions_as_list(self, temp_dir):
         """Test instructions provided as a list."""
-        config_file = temp_dir / ".doc-tester.yml"
+        config_file = temp_dir / ".doctai.yml"
         config_file.write_text("""
 docs:
   - README.md
@@ -98,7 +98,7 @@ instructions:
     
     def test_merge_with_args(self, temp_dir):
         """Test merging config with command-line arguments."""
-        config_file = temp_dir / ".doc-tester.yml"
+        config_file = temp_dir / ".doctai.yml"
         config_file.write_text("""
 docs:
   - README.md
@@ -142,7 +142,7 @@ model: gpt-4o
         monkeypatch.chdir(temp_dir)
         
         # Create config file
-        config_file = temp_dir / ".doc-tester.yml"
+        config_file = temp_dir / ".doctai.yml"
         config_file.write_text("""
 docs:
   - README.md

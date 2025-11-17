@@ -1,6 +1,6 @@
 # Documentation Site
 
-This directory contains the documentation for Documentation Tester, organized for GitHub Pages.
+This directory contains the documentation for doctai, organized for GitHub Pages.
 
 ## Structure
 

@@ -1,5 +1,5 @@
-# Documentation Tester Configuration
-# This is the default config for the doc-tester project itself
+# doctai Configuration
+# This is the default config for the doctai project itself
 
 docs:
   - README.md

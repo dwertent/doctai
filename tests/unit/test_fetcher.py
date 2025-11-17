@@ -4,7 +4,7 @@ Unit tests for the documentation fetcher.
 
 import pytest
 from pathlib import Path
-from doc_tester.fetcher import DocumentationFetcher
+from doctai.fetcher import DocumentationFetcher
 
 
 class TestDocumentationFetcher:

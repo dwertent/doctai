@@ -3,7 +3,7 @@ Unit tests for the script executor.
 """
 
 import pytest
-from doc_tester.executor import ScriptExecutor
+from doctai.executor import ScriptExecutor
 
 
 class TestScriptExecutor:

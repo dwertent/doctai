@@ -13,9 +13,9 @@ import pytest
 import os
 from pathlib import Path
 from unittest.mock import patch, Mock
-from doc_tester.orchestrator import DocumentationTester
-from doc_tester.ai_client import AIClient
-from doc_tester.config import ConfigLoader
+from doctai.orchestrator import DocumentationTester
+from doctai.ai_client import AIClient
+from doctai.config import ConfigLoader
 
 
 class TestAIScriptQuality:
@@ -47,7 +47,7 @@ class TestAIScriptQuality:
         return '\n\n'.join(generated) if generated else None
     
     def _load_config_for_test(self):
-        """Load configuration from .doc-tester.yml file (same as CLI behavior)."""
+        """Load configuration from .doctai.yml file (same as CLI behavior)."""
         config_loader = ConfigLoader()
         config_loader.load()
         return config_loader
@@ -126,8 +126,8 @@ MISSING: pip install flask flask-cors, API endpoint testing
     @pytest.mark.e2e
     @pytest.mark.requires_api
     @pytest.mark.skipif(
-        "DOC_TESTER_API_KEY" not in os.environ,
-        reason="Requires DOC_TESTER_API_KEY environment variable"
+        "DOCTAI_API_KEY" not in os.environ,
+        reason="Requires DOCTAI_API_KEY environment variable"
     )
     def test_flask_api_script_quality(self, mock_projects_dir):
         """Test that AI generates adequate script for Flask API documentation."""
@@ -140,20 +140,20 @@ MISSING: pip install flask flask-cors, API endpoint testing
         # Step 1: Read golden script
         golden_script = self._read_golden_script(project_dir)
         
-        # Step 2: Load config from .doc-tester.yml (same as CLI behavior)
+        # Step 2: Load config from .doctai.yml (same as CLI behavior)
         config_loader = self._load_config_for_test()
         provider = config_loader.get_provider() or 'anthropic'
         model = config_loader.get_model() or 'claude-sonnet-4-20250514'
         
         # Step 3: Create AI client with config values
-        from doc_tester.ai_client import AIClient
+        from doctai.ai_client import AIClient
         ai_client = AIClient(
-            api_key=os.environ['DOC_TESTER_API_KEY'],
+            api_key=os.environ['DOCTAI_API_KEY'],
             provider=provider,
             model=model
         )
         
-        # Step 4: Use doc-tester to generate script from README
+        # Step 4: Use doctai to generate script from README
         tester = DocumentationTester(
             ai_client=ai_client,
             verbose=True
@@ -190,8 +190,8 @@ MISSING: pip install flask flask-cors, API endpoint testing
     @pytest.mark.e2e
     @pytest.mark.requires_api
     @pytest.mark.skipif(
-        "DOC_TESTER_API_KEY" not in os.environ,
-        reason="Requires DOC_TESTER_API_KEY environment variable"
+        "DOCTAI_API_KEY" not in os.environ,
+        reason="Requires DOCTAI_API_KEY environment variable"
     )
     def test_nodejs_cli_script_quality(self, mock_projects_dir):
         """Test that AI generates adequate script for Node.js CLI documentation."""
@@ -203,15 +203,15 @@ MISSING: pip install flask flask-cors, API endpoint testing
         
         golden_script = self._read_golden_script(project_dir)
         
-        # Load config from .doc-tester.yml (same as CLI behavior)
+        # Load config from .doctai.yml (same as CLI behavior)
         config_loader = self._load_config_for_test()
         provider = config_loader.get_provider() or 'anthropic'
         model = config_loader.get_model() or 'claude-sonnet-4-20250514'
         
         # Create AI client with config values
-        from doc_tester.ai_client import AIClient
+        from doctai.ai_client import AIClient
         ai_client = AIClient(
-            api_key=os.environ['DOC_TESTER_API_KEY'],
+            api_key=os.environ['DOCTAI_API_KEY'],
             provider=provider,
             model=model
         )
@@ -249,8 +249,8 @@ MISSING: pip install flask flask-cors, API endpoint testing
     @pytest.mark.e2e
     @pytest.mark.requires_api
     @pytest.mark.skipif(
-        "DOC_TESTER_API_KEY" not in os.environ,
-        reason="Requires DOC_TESTER_API_KEY environment variable"
+        "DOCTAI_API_KEY" not in os.environ,
+        reason="Requires DOCTAI_API_KEY environment variable"
     )
     def test_python_data_analysis_script_quality(self, mock_projects_dir):
         """Test that AI generates adequate script for Python data analysis documentation."""
@@ -262,15 +262,15 @@ MISSING: pip install flask flask-cors, API endpoint testing
         
         golden_script = self._read_golden_script(project_dir)
         
-        # Load config from .doc-tester.yml (same as CLI behavior)
+        # Load config from .doctai.yml (same as CLI behavior)
         config_loader = self._load_config_for_test()
         provider = config_loader.get_provider() or 'anthropic'
         model = config_loader.get_model() or 'claude-sonnet-4-20250514'
         
         # Create AI client with config values
-        from doc_tester.ai_client import AIClient
+        from doctai.ai_client import AIClient
         ai_client = AIClient(
-            api_key=os.environ['DOC_TESTER_API_KEY'],
+            api_key=os.environ['DOCTAI_API_KEY'],
             provider=provider,
             model=model
         )

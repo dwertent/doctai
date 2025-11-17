@@ -1,6 +1,6 @@
 # Testing Documentation
 
-This directory contains the test suite for Documentation Tester.
+This directory contains the test suite for doctai.
 
 ## Structure
 
@@ -58,7 +58,7 @@ pytest tests/integration/
 
 ```bash
 # Requires API key
-export DOC_TESTER_API_KEY="your-key"
+export DOCTAI_API_KEY="your-key"
 pytest tests/e2e/
 ```
 
@@ -110,7 +110,7 @@ pytest tests/integration/ -v
 
 **Example:**
 ```bash
-DOC_TESTER_API_KEY=$KEY pytest tests/e2e/ -v
+DOCTAI_API_KEY=$KEY pytest tests/e2e/ -v
 ```
 
 ## Writing Tests

@@ -1,5 +1,5 @@
-# Documentation Tester Configuration File
-# Copy this file to .doc-tester.yml and customize for your project
+# doctai Configuration File
+# Copy this file to .doctai.yml and customize for your project
 
 # Documentation sources to test
 # Can be file paths, directory paths, or URLs
@@ -18,7 +18,7 @@ provider: openai
 # model: claude-3-5-sonnet-20241022 # For Anthropic
 # model: gemini-1.5-pro-latest      # For Gemini
 
-# API Key Environment Variable (optional, default: DOC_TESTER_API_KEY)
+# API Key Environment Variable (optional, default: DOCTAI_API_KEY)
 # Specify which environment variable contains your API key
 # Useful if you prefer provider-specific env vars like OPENAI_API_KEY
 # api_key_env_var: ANTHROPIC_API_KEY  # or OPENAI_API_KEY, GEMINI_API_KEY, etc.

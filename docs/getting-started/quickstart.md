@@ -7,7 +7,7 @@ nav_order: 2
 
 # Quick Start Guide
 
-Get started with Documentation Tester in 5 minutes!
+Get started with doctai in 5 minutes!
 
 ## 1. Install
 
@@ -23,21 +23,21 @@ Choose your AI provider and set the API key:
 ### Option A: OpenAI (Recommended)
 
 ```bash
-export DOC_TESTER_API_KEY="sk-your-openai-api-key-here"
+export DOCTAI_API_KEY="sk-your-openai-api-key-here"
 ```
 
 ### Option B: Anthropic Claude
 
 ```bash
-export DOC_TESTER_API_KEY="sk-ant-your-anthropic-api-key-here"
-export DOC_TESTER_PROVIDER="anthropic"
+export DOCTAI_API_KEY="sk-ant-your-anthropic-api-key-here"
+export DOCTAI_PROVIDER="anthropic"
 ```
 
 ### Option C: Google Gemini
 
 ```bash
-export DOC_TESTER_API_KEY="your-gemini-api-key-here"
-export DOC_TESTER_PROVIDER="gemini"
+export DOCTAI_API_KEY="your-gemini-api-key-here"
+export DOCTAI_PROVIDER="gemini"
 ```
 
 ## 3. Test the Example Documentation
@@ -45,15 +45,15 @@ export DOC_TESTER_PROVIDER="gemini"
 ### Option A: Using the built-in config file
 
 ```bash
-doc-tester --api-key $DOC_TESTER_API_KEY
+doctai --api-key $DOCTAI_API_KEY
 ```
 
-This project has a `.doc-tester.yml` file that automatically specifies which docs to test!
+This project has a `.doctai.yml` file that automatically specifies which docs to test!
 
 ### Option B: Specify docs manually
 
 ```bash
-doc-tester --docs examples/sample-documentation.md --api-key $DOC_TESTER_API_KEY
+doctai --docs examples/sample-documentation.md --api-key $DOCTAI_API_KEY
 ```
 
 ### Option C: Use the convenience script
@@ -65,7 +65,7 @@ doc-tester --docs examples/sample-documentation.md --api-key $DOC_TESTER_API_KEY
 ## 4. Test Your Own Documentation
 
 ```bash
-doc-tester --docs /path/to/your/README.md --api-key $DOC_TESTER_API_KEY
+doctai --docs /path/to/your/README.md --api-key $DOCTAI_API_KEY
 ```
 
 ## 5. Use in GitHub Actions
@@ -85,15 +85,15 @@ jobs:
     - uses: actions/setup-python@v5
       with:
         python-version: '3.11'
-    - run: pip install doc-tester
-    - run: doc-tester --docs README.md --api-key ${{ secrets.OPENAI_API_KEY }}
+    - run: pip install doctai
+    - run: doctai --docs README.md --api-key ${{ secrets.OPENAI_API_KEY }}
 ```
 
 Don't forget to add your API key as a GitHub secret!
 
 ## What Happens?
 
-1. **Fetch**: Documentation Tester reads your documentation
+1. **Fetch**: doctai reads your documentation
 2. **Analyze**: AI understands what needs to be done
 3. **Generate**: AI creates executable test scripts
 4. **Execute**: Scripts are run in a safe environment
@@ -104,31 +104,31 @@ Don't forget to add your API key as a GitHub secret!
 ### Test Installation Instructions
 
 ```bash
-doc-tester --docs docs/installation.md --api-key $DOC_TESTER_API_KEY
+doctai --docs docs/installation.md --api-key $DOCTAI_API_KEY
 ```
 
 ### Test Multiple Documents
 
 ```bash
-doc-tester --docs README.md docs/setup.md docs/tutorial.md --api-key $DOC_TESTER_API_KEY
+doctai --docs README.md docs/setup.md docs/tutorial.md --api-key $DOCTAI_API_KEY
 ```
 
 ### Test Documentation from URL
 
 ```bash
-doc-tester --docs https://raw.githubusercontent.com/user/repo/main/README.md --api-key $DOC_TESTER_API_KEY
+doctai --docs https://raw.githubusercontent.com/user/repo/main/README.md --api-key $DOCTAI_API_KEY
 ```
 
 ### Save Results to JSON
 
 ```bash
-doc-tester --docs README.md --api-key $DOC_TESTER_API_KEY --output results.json
+doctai --docs README.md --api-key $DOCTAI_API_KEY --output results.json
 ```
 
 ### Run Quietly (CI/CD)
 
 ```bash
-doc-tester --docs README.md --api-key $DOC_TESTER_API_KEY --quiet
+doctai --docs README.md --api-key $DOCTAI_API_KEY --quiet
 ```
 
 ## Troubleshooting
@@ -144,7 +144,7 @@ pip install -e .
 
 Set your API key:
 ```bash
-export DOC_TESTER_API_KEY="your-key-here"
+export DOCTAI_API_KEY="your-key-here"
 ```
 
 ### "No test scripts were generated"

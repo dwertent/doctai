@@ -7,7 +7,7 @@ nav_order: 3
 
 # Google Gemini Setup Guide
 
-Quick guide for using Google Gemini with Documentation Tester.
+Quick guide for using Google Gemini with doctai.
 
 ## Getting Your API Key
 
@@ -21,14 +21,14 @@ Quick guide for using Google Gemini with Documentation Tester.
 ### Method 1: Environment Variable
 
 ```bash
-export DOC_TESTER_API_KEY="your-gemini-api-key-here"
-export DOC_TESTER_PROVIDER="gemini"
+export DOCTAI_API_KEY="your-gemini-api-key-here"
+export DOCTAI_PROVIDER="gemini"
 ```
 
 ### Method 2: Command Line
 
 ```bash
-doc-tester --docs README.md \
+doctai --docs README.md \
   --api-key "your-gemini-api-key" \
   --provider gemini
 ```
@@ -38,16 +38,16 @@ doc-tester --docs README.md \
 ### Basic Usage
 
 ```bash
-doc-tester --docs README.md \
-  --api-key $DOC_TESTER_API_KEY \
+doctai --docs README.md \
+  --api-key $DOCTAI_API_KEY \
   --provider gemini
 ```
 
 ### With Specific Model
 
 ```bash
-doc-tester --docs README.md \
-  --api-key $DOC_TESTER_API_KEY \
+doctai --docs README.md \
+  --api-key $DOCTAI_API_KEY \
   --provider gemini \
   --model gemini-1.5-pro-latest
 ```
@@ -55,16 +55,16 @@ doc-tester --docs README.md \
 ### Multiple Documents
 
 ```bash
-doc-tester --docs README.md INSTALL.md \
-  --api-key $DOC_TESTER_API_KEY \
+doctai --docs README.md INSTALL.md \
+  --api-key $DOCTAI_API_KEY \
   --provider gemini
 ```
 
 ### With Output File
 
 ```bash
-doc-tester --docs README.md \
-  --api-key $DOC_TESTER_API_KEY \
+doctai --docs README.md \
+  --api-key $DOCTAI_API_KEY \
   --provider gemini \
   --output results.json
 ```
@@ -80,8 +80,8 @@ Gemini provides several models. The default is `gemini-1.5-pro-latest`, but you 
 Example with Flash model:
 
 ```bash
-doc-tester --docs README.md \
-  --api-key $DOC_TESTER_API_KEY \
+doctai --docs README.md \
+  --api-key $DOCTAI_API_KEY \
   --provider gemini \
   --model gemini-1.5-flash-latest
 ```
@@ -111,9 +111,9 @@ jobs:
     - uses: actions/setup-python@v5
       with:
         python-version: '3.11'
-    - run: pip install doc-tester
+    - run: pip install doctai
     - run: |
-        doc-tester \
+        doctai \
           --docs README.md \
           --api-key ${{ secrets.GEMINI_API_KEY }} \
           --provider gemini

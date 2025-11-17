@@ -4,13 +4,24 @@ title: Home
 nav_order: 1
 ---
 
-# Documentation Tester
+# doctai
+{: .fs-9 }
 
-**AI-powered documentation testing tool** that automatically verifies your documentation by reading it, understanding it through AI, generating test scripts, and executing them.
+AI-powered documentation testing
+{: .fs-6 .fw-300 }
+
+[Get Started](getting-started/get-started.html){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
+[View on GitHub](https://github.com/dwertent/doctai){: .btn .fs-5 .mb-4 .mb-md-0 }
+
+---
+
+**Stop wondering if your docs work—know for certain.**
+
+doctai automatically verifies your documentation by reading it with AI, generating test scripts, and executing them.
 
 ## 🚀 Overview
 
-Documentation Tester solves a common problem: **outdated or broken documentation**. It uses AI to:
+doctai solves a common problem: **outdated or broken documentation**. It uses AI to:
 
 1. **Read** your documentation (setup guides, tutorials, installation instructions)
 2. **Understand** what needs to be done through AI analysis
@@ -39,10 +50,10 @@ Perfect for:
 
 ```bash
 # 1. Install
-pip install doc-tester
+pip install doctai
 
 # 2. Create config
-cat > .doc-tester.yml << 'EOF'
+cat > .doctai.yml << 'EOF'
 docs:
   - README.md
   - docs/installation.md
@@ -50,7 +61,7 @@ provider: openai
 EOF
 
 # 3. Run
-doc-tester --api-key $OPENAI_API_KEY
+doctai --api-key $OPENAI_API_KEY
 ```
 
 See [Get Started](getting-started/get-started.html) for detailed instructions.
@@ -87,13 +98,13 @@ See [Get Started](getting-started/get-started.html) for detailed instructions.
 ### Basic Usage
 
 ```bash
-doc-tester --docs README.md --api-key $OPENAI_API_KEY
+doctai --docs README.md --api-key $OPENAI_API_KEY
 ```
 
 ### With Configuration File
 
 ```yaml
-# .doc-tester.yml
+# .doctai.yml
 docs:
   - README.md
   - docs/installation.md
@@ -108,21 +119,21 @@ instructions: |
 ```
 
 ```bash
-doc-tester --api-key $GEMINI_API_KEY
+doctai --api-key $GEMINI_API_KEY
 ```
 
 ### In GitHub Actions
 
 ```yaml
 - name: Test Documentation
-  run: doc-tester --api-key ${{ secrets.OPENAI_API_KEY }}
+  run: doctai --api-key ${{ secrets.OPENAI_API_KEY }}
 ```
 
 ## 🔗 Quick Links
 
-- [GitHub Repository](https://github.com/yourusername/doc-tester)
-- [Report Issues](https://github.com/yourusername/doc-tester/issues)
-- [PyPI Package](https://pypi.org/project/doc-tester/)
+- [GitHub Repository](https://github.com/dwertent/doctai)
+- [Report Issues](https://github.com/dwertent/doctai/issues)
+- [PyPI Package](https://pypi.org/project/doctai/)
 
 ## 🤝 Contributing
 
@@ -130,7 +141,7 @@ We welcome contributions! See our [Contributing Guide](reference/contributing.ht
 
 ## 📄 License
 
-MIT License - see [LICENSE](https://github.com/yourusername/doc-tester/blob/main/LICENSE) for details.
+MIT License - see [LICENSE](https://github.com/dwertent/doctai/blob/main/LICENSE) for details.
 
 ---
 

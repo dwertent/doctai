@@ -4,14 +4,14 @@ Integration tests for the full documentation testing workflow.
 
 import pytest
 from unittest.mock import Mock, patch, MagicMock
-from doc_tester.orchestrator import DocumentationTester
+from doctai.orchestrator import DocumentationTester
 from tests.mocks import mock_openai_response, VALID_AI_RESPONSE
 
 
 class TestFullWorkflow:
     """Test the complete workflow with mocked AI."""
     
-    @patch('doc_tester.ai_client.requests.post')
+    @patch('doctai.ai_client.requests.post')
     def test_complete_workflow_openai(self, mock_post, temp_dir, sample_doc):
         """Test complete workflow with OpenAI (mocked)."""
         # Setup
@@ -25,9 +25,15 @@ class TestFullWorkflow:
         mock_post.return_value = mock_response
         
         # Run workflow
-        tester = DocumentationTester(
+        # Create AI client
+        from doctai.ai_client import AIClient
+        ai_client = AIClient(
             api_key="test-key",
-            provider="openai",
+            provider="openai"
+        )
+        
+        tester = DocumentationTester(
+            ai_client=ai_client,
             work_dir=str(temp_dir / "work"),
             verbose=False
         )
@@ -39,7 +45,7 @@ class TestFullWorkflow:
         assert 'documentation' in results
         assert mock_post.called
     
-    @patch('doc_tester.ai_client.requests.post')
+    @patch('doctai.ai_client.requests.post')
     def test_workflow_with_custom_instructions(self, mock_post, temp_dir, sample_doc):
         """Test workflow with custom instructions."""
         # Setup
@@ -53,9 +59,15 @@ class TestFullWorkflow:
         mock_post.return_value = mock_response
         
         # Run with custom instructions
-        tester = DocumentationTester(
+        # Create AI client
+        from doctai.ai_client import AIClient
+        ai_client = AIClient(
             api_key="test-key",
-            provider="openai",
+            provider="openai"
+        )
+        
+        tester = DocumentationTester(
+            ai_client=ai_client,
             work_dir=str(temp_dir / "work"),
             verbose=False
         )
@@ -76,7 +88,7 @@ class TestFullWorkflow:
         assert system_message is not None
         assert "Ubuntu 22.04" in system_message['content']
     
-    @patch('doc_tester.ai_client.requests.post')
+    @patch('doctai.ai_client.requests.post')
     def test_workflow_with_failure(self, mock_post, temp_dir, sample_doc):
         """Test workflow when scripts fail."""
         # Setup
@@ -97,9 +109,15 @@ exit 1
         mock_post.return_value = mock_response
         
         # Run workflow
-        tester = DocumentationTester(
+        # Create AI client
+        from doctai.ai_client import AIClient
+        ai_client = AIClient(
             api_key="test-key",
-            provider="openai",
+            provider="openai"
+        )
+        
+        tester = DocumentationTester(
+            ai_client=ai_client,
             work_dir=str(temp_dir / "work"),
             stop_on_failure=True,
             verbose=False
@@ -110,7 +128,7 @@ exit 1
         # Verify failure was detected
         assert results['success'] is False
     
-    @patch('doc_tester.ai_client.requests.post')
+    @patch('doctai.ai_client.requests.post')
     def test_multiple_iterations(self, mock_post, temp_dir, sample_doc):
         """Test multiple AI iterations."""
         # Setup
@@ -129,9 +147,15 @@ exit 1
         mock_post.return_value = mock_response
         
         # Run workflow with iterations
-        tester = DocumentationTester(
+        # Create AI client
+        from doctai.ai_client import AIClient
+        ai_client = AIClient(
             api_key="test-key",
-            provider="openai",
+            provider="openai"
+        )
+        
+        tester = DocumentationTester(
+            ai_client=ai_client,
             work_dir=str(temp_dir / "work"),
             max_iterations=2,
             verbose=False

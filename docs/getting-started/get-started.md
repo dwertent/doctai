@@ -7,7 +7,7 @@ nav_order: 3
 
 # Get Started in 3 Steps
 
-The fastest way to start using Documentation Tester.
+The fastest way to start using doctai.
 
 ## Step 1: Install (2 minutes)
 
@@ -33,7 +33,7 @@ Get an API key and set it:
 2. Create a new API key
 3. Run:
 ```bash
-export DOC_TESTER_API_KEY="sk-your-key-here"
+export DOCTAI_API_KEY="sk-your-key-here"
 ```
 
 ### For Anthropic:
@@ -41,8 +41,8 @@ export DOC_TESTER_API_KEY="sk-your-key-here"
 2. Create an API key
 3. Run:
 ```bash
-export DOC_TESTER_API_KEY="sk-ant-your-key-here"
-export DOC_TESTER_PROVIDER="anthropic"
+export DOCTAI_API_KEY="sk-ant-your-key-here"
+export DOCTAI_PROVIDER="anthropic"
 ```
 
 ### For Google Gemini:
@@ -50,8 +50,8 @@ export DOC_TESTER_PROVIDER="anthropic"
 2. Create an API key
 3. Run:
 ```bash
-export DOC_TESTER_API_KEY="your-gemini-key-here"
-export DOC_TESTER_PROVIDER="gemini"
+export DOCTAI_API_KEY="your-gemini-key-here"
+export DOCTAI_PROVIDER="gemini"
 ```
 
 ## Step 3: Test (1 minute)
@@ -60,7 +60,7 @@ Activate the virtual environment and test:
 
 ```bash
 source venv/bin/activate
-doc-tester --docs examples/sample-documentation.md --api-key $DOC_TESTER_API_KEY
+doctai --docs examples/sample-documentation.md --api-key $DOCTAI_API_KEY
 ```
 
 You should see:
@@ -84,25 +84,25 @@ STEP 3: Executing Test Scripts
 ### Test Your Own Documentation
 
 ```bash
-doc-tester --docs YOUR_README.md --api-key $DOC_TESTER_API_KEY
+doctai --docs YOUR_README.md --api-key $DOCTAI_API_KEY
 ```
 
 ### Test Multiple Files
 
 ```bash
-doc-tester --docs README.md docs/setup.md docs/install.md --api-key $DOC_TESTER_API_KEY
+doctai --docs README.md docs/setup.md docs/install.md --api-key $DOCTAI_API_KEY
 ```
 
 ### Test Documentation from URL
 
 ```bash
-doc-tester --docs https://raw.githubusercontent.com/user/repo/main/README.md --api-key $DOC_TESTER_API_KEY
+doctai --docs https://raw.githubusercontent.com/user/repo/main/README.md --api-key $DOCTAI_API_KEY
 ```
 
 ### Save Results
 
 ```bash
-doc-tester --docs README.md --api-key $DOC_TESTER_API_KEY --output results.json
+doctai --docs README.md --api-key $DOCTAI_API_KEY --output results.json
 ```
 
 ### Run in CI/CD
@@ -111,7 +111,7 @@ Copy `.github/workflows/test-docs.yml` to your repo and add your API key as a Gi
 
 ## Troubleshooting
 
-### "command not found: doc-tester"
+### "command not found: doctai"
 
 Activate the virtual environment:
 ```bash
@@ -122,7 +122,7 @@ source venv/bin/activate
 
 Set your API key:
 ```bash
-export DOC_TESTER_API_KEY="your-key-here"
+export DOCTAI_API_KEY="your-key-here"
 ```
 
 ### "No test scripts were generated"
@@ -146,25 +146,25 @@ Your documentation might need more explicit instructions. The AI looks for:
 ### 1. Test Installation Instructions
 
 ```bash
-doc-tester --docs docs/installation.md --api-key $DOC_TESTER_API_KEY
+doctai --docs docs/installation.md --api-key $DOCTAI_API_KEY
 ```
 
 ### 2. Test Getting Started Guide
 
 ```bash
-doc-tester --docs docs/getting-started.md --api-key $DOC_TESTER_API_KEY
+doctai --docs docs/getting-started.md --api-key $DOCTAI_API_KEY
 ```
 
 ### 3. Test Tutorial
 
 ```bash
-doc-tester --docs docs/tutorial.md --api-key $DOC_TESTER_API_KEY
+doctai --docs docs/tutorial.md --api-key $DOCTAI_API_KEY
 ```
 
 ### 4. Test All Documentation
 
 ```bash
-doc-tester --docs docs/ --api-key $DOC_TESTER_API_KEY
+doctai --docs docs/ --api-key $DOCTAI_API_KEY
 ```
 
 ## Tips for Better Results

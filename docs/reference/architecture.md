@@ -7,11 +7,11 @@ nav_order: 1
 
 # Architecture
 
-This document describes the architecture of the Documentation Tester.
+This document describes the architecture of the doctai.
 
 ## Overview
 
-Documentation Tester is a Python-based tool that uses AI to automatically test documentation by generating and executing test scripts.
+doctai is a Python-based tool that uses AI to automatically test documentation by generating and executing test scripts.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -188,10 +188,10 @@ JSON Output / Console Display
 
 ### Environment Variables
 
-- `DOC_TESTER_API_KEY`: AI API key
-- `DOC_TESTER_API_URL`: Custom API endpoint
-- `DOC_TESTER_PROVIDER`: AI provider name
-- `DOC_TESTER_MODEL`: Model name
+- `DOCTAI_API_KEY`: AI API key
+- `DOCTAI_API_URL`: Custom API endpoint
+- `DOCTAI_PROVIDER`: AI provider name
+- `DOCTAI_MODEL`: Model name
 
 ### Command-Line Options
 
@@ -326,7 +326,7 @@ FROM python:3.11-slim
 COPY . /app
 WORKDIR /app
 RUN pip install -e .
-ENTRYPOINT ["doc-tester"]
+ENTRYPOINT ["doctai"]
 ```
 
 ## Contributing

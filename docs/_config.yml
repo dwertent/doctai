@@ -1,7 +1,7 @@
 # Jekyll configuration for GitHub Pages
 
-title: Documentation Tester
-description: AI-powered documentation testing tool
+title: doctai
+description: "doc-t-ai: AI-powered documentation testing"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site
 
@@ -27,17 +27,17 @@ search:
 # Aux links for the upper right navigation
 aux_links:
   "GitHub":
-    - "//github.com/yourusername/doc-tester"
+    - "//github.com/dwertent/doctai"
   "PyPI":
-    - "//pypi.org/project/doc-tester"
+    - "//pypi.org/project/doctai"
 
 # Footer content
-footer_content: "Copyright &copy; 2025 Documentation Tester Contributors. Distributed under the <a href=\"https://github.com/yourusername/doc-tester/blob/main/LICENSE\">MIT License</a>."
+footer_content: "Copyright &copy; 2025 doctai Contributors. Distributed under the <a href=\"https://github.com/dwertent/doctai/blob/main/LICENSE\">Apache-2.0 License</a>."
 
 # Footer "Edit this page on GitHub" link
 gh_edit_link: true
 gh_edit_link_text: "Edit this page on GitHub"
-gh_edit_repository: "https://github.com/yourusername/doc-tester"
+gh_edit_repository: "https://github.com/dwertent/doctai"
 gh_edit_branch: "main"
 gh_edit_view_mode: "tree"
 

@@ -6,9 +6,9 @@ import argparse
 import sys
 import os
 import json
-from doc_tester.ai_client import AIClient
-from doc_tester.orchestrator import DocumentationTester
-from doc_tester.config import ConfigLoader
+from doctai.ai_client import AIClient
+from doctai.orchestrator import DocumentationTester
+from doctai.config import ConfigLoader
 
 
 def main():
@@ -19,25 +19,25 @@ def main():
         epilog="""
 Examples:
   # Test documentation from a local file
-  doc-tester --docs README.md --api-key $OPENAI_API_KEY
+  doctai --docs README.md --api-key $OPENAI_API_KEY
   
   # Test documentation from a URL
-  doc-tester --docs https://example.com/setup.md --api-key $ANTHROPIC_API_KEY --provider anthropic
+  doctai --docs https://example.com/setup.md --api-key $ANTHROPIC_API_KEY --provider anthropic
   
   # Test multiple documentation sources
-  doc-tester --docs README.md docs/setup.md --api-key $API_KEY
+  doctai --docs README.md docs/setup.md --api-key $API_KEY
   
   # Use custom AI endpoint
-  doc-tester --docs README.md --api-key $API_KEY --api-url https://custom-ai.com/v1/chat --provider custom --model gpt-4
+  doctai --docs README.md --api-key $API_KEY --api-url https://custom-ai.com/v1/chat --provider custom --model gpt-4
   
   # Save results to JSON file
-  doc-tester --docs README.md --api-key $API_KEY --output results.json
+  doctai --docs README.md --api-key $API_KEY --output results.json
   
 Environment variables:
-  DOC_TESTER_API_KEY     API key for AI provider
-  DOC_TESTER_API_URL     Custom API URL
-  DOC_TESTER_PROVIDER    AI provider (openai, anthropic, custom)
-  DOC_TESTER_MODEL       Model name to use
+  DOCTAI_API_KEY     API key for AI provider
+  DOCTAI_API_URL     Custom API URL
+  DOCTAI_PROVIDER    AI provider (openai, anthropic, custom)
+  DOCTAI_MODEL       Model name to use
         """
     )
     
@@ -53,7 +53,7 @@ Environment variables:
     parser.add_argument(
         '--config',
         metavar='FILE',
-        help='Path to configuration file (default: searches for .doc-tester.yml/yaml/json)'
+        help='Path to configuration file (default: searches for .doctai.yml/yaml/json)'
     )
     
     # API configuration
@@ -62,28 +62,28 @@ Environment variables:
         '--api-key',
         default=None,
         metavar='KEY',
-        help='API key for AI provider (or set DOC_TESTER_API_KEY env var, or configure api_key_env_var in config file)'
+        help='API key for AI provider (or set DOCTAI_API_KEY env var, or configure api_key_env_var in config file)'
     )
     
     parser.add_argument(
         '--api-url',
-        default=os.getenv('DOC_TESTER_API_URL'),
+        default=os.getenv('DOCTAI_API_URL'),
         metavar='URL',
-        help='Custom API URL (or set DOC_TESTER_API_URL env var)'
+        help='Custom API URL (or set DOCTAI_API_URL env var)'
     )
     
     parser.add_argument(
         '--provider',
-        default=os.getenv('DOC_TESTER_PROVIDER', 'openai'),
+        default=os.getenv('DOCTAI_PROVIDER', 'openai'),
         choices=['openai', 'anthropic', 'gemini', 'custom'],
-        help='AI provider (default: openai, or set DOC_TESTER_PROVIDER env var)'
+        help='AI provider (default: openai, or set DOCTAI_PROVIDER env var)'
     )
     
     parser.add_argument(
         '--model',
-        default=os.getenv('DOC_TESTER_MODEL'),
+        default=os.getenv('DOCTAI_MODEL'),
         metavar='MODEL',
-        help='Model name to use (or set DOC_TESTER_MODEL env var)'
+        help='Model name to use (or set DOCTAI_MODEL env var)'
     )
     
     # Execution options
@@ -152,8 +152,8 @@ Environment variables:
             print(f"Loaded configuration from: {config_source}")
         
         # Determine which environment variable to use for API key
-        # Priority: DOC_TESTER_API_KEY_ENV_VAR > config file > default (DOC_TESTER_API_KEY)
-        api_key_env_var = os.getenv('DOC_TESTER_API_KEY_ENV_VAR') or config_loader.get_api_key_env_var() or 'DOC_TESTER_API_KEY'
+        # Priority: DOCTAI_API_KEY_ENV_VAR > config file > default (DOCTAI_API_KEY)
+        api_key_env_var = os.getenv('DOCTAI_API_KEY_ENV_VAR') or config_loader.get_api_key_env_var() or 'DOCTAI_API_KEY'
         
         # If no API key provided via CLI, read from the specified environment variable
         if args.api_key is None:
@@ -175,7 +175,7 @@ Environment variables:
         print("Continuing with command-line arguments only...", file=sys.stderr)
         # Still try to get API key from default env var if config loading failed
         if args.api_key is None:
-            args.api_key = os.getenv('DOC_TESTER_API_KEY')
+            args.api_key = os.getenv('DOCTAI_API_KEY')
     
     # Validate we have documentation sources
     if not args.docs:
@@ -188,15 +188,15 @@ Environment variables:
         print("="*80)
         print("\nNo API key provided. Please provide an API key using one of these methods:\n")
         print("  1. Command line:")
-        print("     doc-tester --api-key YOUR_API_KEY\n")
+        print("     doctai --api-key YOUR_API_KEY\n")
         print("  2. Environment variable:")
-        print("     export DOC_TESTER_API_KEY='YOUR_API_KEY'")
-        print("     doc-tester\n")
+        print("     export DOCTAI_API_KEY='YOUR_API_KEY'")
+        print("     doctai\n")
         print("  3. Custom environment variable (in config file):")
-        print("     # .doc-tester.yml")
+        print("     # .doctai.yml")
         print("     api_key_env_var: OPENAI_API_KEY  # or ANTHROPIC_API_KEY, etc.")
         print("     export OPENAI_API_KEY='YOUR_API_KEY'")
-        print("     doc-tester\n")
+        print("     doctai\n")
         print("  4. Get an API key from:")
         print("     - OpenAI: https://platform.openai.com/api-keys")
         print("     - Anthropic (Claude): https://console.anthropic.com/")
